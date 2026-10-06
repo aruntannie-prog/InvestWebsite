@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kosha Wealth — Invest with a plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F6FA;--surface:#FFFFFF;--surface-2:#F8FAFD;--line:#E3E8F0;--line-2:#EEF2F7;
+  --navy:#0A2540;--text:#1A2B3C;--muted:#5F6F82;--faint:#8A98A8;
+  --primary:#0B5CD5;--primary-2:#0A4DB3;--primary-soft:#E8F0FD;
+  --accent:#F5A524;--accent-soft:#FFF4E0;--up:#0F8A4C;--up-soft:#E6F6EE;--down:#D0342C;--down-soft:#FDECEB;
+  --hero:#0A2540;--hero-2:#0E3A63;
+  --shadow-sm:0 1px 2px rgba(10,37,64,.06);--shadow:0 2px 6px rgba(10,37,64,.05),0 12px 32px rgba(10,37,64,.07);
+  --font:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:root[data-theme="dark"]{
+  --bg:#0B1420;--surface:#111D2B;--surface-2:#0F1A27;--line:#213244;--line-2:#1A2A3A;
+  --navy:#E6EEF7;--text:#D9E3EE;--muted:#93A4B6;--faint:#6F8296;
+  --primary:#4C8DF6;--primary-2:#6AA1F8;--primary-soft:#14263D;
+  --accent:#F5B54A;--accent-soft:#2A2213;--up:#3CC683;--up-soft:#0F2A1F;--down:#F2716A;--down-soft:#2E1716;
+  --hero:#0D1B2C;--hero-2:#12304F;--shadow-sm:none;--shadow:none;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 var(--font);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{color:var(--navy);margin:0;line-height:1.2;letter-spacing:-.02em}
+h1{font-size:clamp(2.1rem,4.4vw,3.4rem);font-weight:800}
+.hero h1{font-size:clamp(2.1rem,3.9vw,3.1rem)}
+h2{font-size:clamp(1.55rem,2.6vw,2.15rem);font-weight:800}
+h3{font-size:1.08rem;font-weight:700}
+h4{font-size:.95rem;font-weight:700}
+p{margin:0}a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--primary);outline-offset:2px;border-radius:6px}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.muted{color:var(--muted)}.small{font-size:.86rem}
+.pos{color:var(--up)!important}.neg{color:var(--down)!important}
+svg.i{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+/* buttons */
+.btn{border:0;cursor:pointer;border-radius:10px;padding:11px 20px;font-weight:700;font-size:.92rem;text-decoration:none;display:inline-flex;align-items:center;gap:8px;justify-content:center;white-space:nowrap;transition:background .15s,border-color .15s}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-2)}
+.btn-outline{background:var(--surface);color:var(--primary);border:1.5px solid var(--primary)}
+.btn-outline:hover{background:var(--primary-soft)}
+.btn-light{background:var(--surface);color:var(--navy);border:1px solid var(--line)}
+.btn-light:hover{border-color:var(--primary)}
+.btn-white{background:#fff;color:#0A2540}
+.btn-sm{padding:7px 14px;font-size:.84rem;border-radius:8px}
+.icon-btn{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;cursor:pointer;color:var(--muted);position:relative}
+.icon-btn:hover{color:var(--primary);border-color:var(--primary)}
+.badge[hidden]{display:none}
+.badge{position:absolute;top:-6px;right:-6px;background:var(--accent);color:#2B1D00;font-size:.7rem;font-weight:800;min-width:19px;height:19px;border-radius:10px;display:grid;place-items:center;padding:0 5px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.pad{padding:22px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--primary-soft);color:var(--primary)}
+.chip.new{background:var(--accent-soft);color:#9A5B00}
+:root[data-theme="dark"] .chip.new{color:var(--accent)}
+.stars{color:var(--accent);font-size:.82rem;letter-spacing:1px;white-space:nowrap}
+
+/* ===================== PUBLIC SITE ===================== */
+.topbar{background:var(--hero);color:#C9D6E5;font-size:.82rem}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:36px;gap:16px}
+.topbar a{text-decoration:none;opacity:.8}.topbar a:hover,.topbar a.on{opacity:1;color:#fff}
+.topbar .seglinks{display:flex;gap:20px}
+.pub-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--surface);border-bottom:1px solid var(--line)}
+.pub-nav{display:flex;align-items:center;height:70px;gap:28px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.25rem;color:var(--navy);text-decoration:none;letter-spacing:-.02em}
+.logo-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--primary),#0A2540);display:grid;place-items:center;color:#fff;font-weight:800;font-size:.95rem}
+.menu{display:flex;gap:2px;list-style:none;margin:0;padding:0}
+.menu>li{position:relative}
+.menu>li>a,.menu>li>button{display:flex;align-items:center;gap:4px;padding:24px 12px;font-weight:600;color:var(--text);text-decoration:none;background:none;border:0;cursor:pointer;font-size:.93rem}
+.menu>li>a:hover,.menu>li>button:hover{color:var(--primary)}
+.menu .caret{width:14px;height:14px}
+.mega{position:absolute;top:100%;left:-12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:14px;display:none;min-width:520px;grid-template-columns:1fr 1fr;gap:4px}
+.menu>li:hover .mega,.menu>li:focus-within .mega{display:grid}
+.mega a{display:flex;gap:12px;padding:10px 12px;border-radius:10px;text-decoration:none}
+.mega a:hover{background:var(--surface-2)}
+.mega .mi{width:36px;height:36px;border-radius:9px;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;flex:none}
+.mega b{display:block;color:var(--navy);font-size:.92rem}
+.mega span{color:var(--muted);font-size:.8rem;line-height:1.4}
+.pub-actions{margin-left:auto;display:flex;gap:10px;align-items:center}
+.burger{display:none}
+@media (max-width:1020px){.menu{display:none}.burger{display:grid}.menu.open{display:flex;flex-direction:column;position:absolute;top:70px;left:0;right:0;background:var(--surface);border-bottom:1px solid var(--line);padding:8px 24px}.menu.open .mega{display:none!important}.menu.open>li>a,.menu.open>li>button{padding:12px 0}}
+@media (max-width:560px){.hide-sm{display:none!important}}
+
+.hero{background:radial-gradient(1200px 500px at 85% -10%,var(--hero-2),transparent 60%),var(--hero);color:#C9D6E5;padding:72px 0 84px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center}
+@media (max-width:940px){.hero-grid{grid-template-columns:1fr}}
+.hero h1{color:#fff}
+.hero h1 .rot{display:block;color:#7FB2FF;min-height:1.2em;transition:opacity .25s}
+.hero p.lead{font-size:1.1rem;margin-top:18px;max-width:52ch;color:#B8C8DA}
+.hero-cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.hero-cta .btn-ghost-w{background:transparent;border:1.5px solid rgba(255,255,255,.35);color:#fff}
+.hero-cta .btn-ghost-w:hover{border-color:#fff}
+.hero-stats{display:flex;gap:40px;margin-top:44px;flex-wrap:wrap}
+.hero-stats b{display:block;color:#fff;font-size:1.6rem;font-weight:800}
+.hero-stats span{font-size:.85rem}
+.hero-visual{position:relative;min-height:380px}
+.hv-card{position:absolute;background:#fff;color:#1A2B3C;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.3);padding:18px}
+.hv-main{inset:10px 40px auto 0;}
+.hv-main small{color:#5F6F82;font-size:.8rem}
+.hv-main .v{font-size:1.9rem;font-weight:800;color:#0A2540}
+.hv-goal{right:0;bottom:30px;width:230px}
+.hv-sip{left:20px;bottom:0;width:210px}
+.prog{height:8px;border-radius:4px;background:#E8F0FD;overflow:hidden;margin-top:8px}.prog span{display:block;height:100%;background:#0B5CD5}
+:root[data-theme="dark"] .prog{background:var(--line)}
+.hv-row{display:flex;justify-content:space-between;font-size:.85rem;margin-top:6px}
+@media (max-width:940px){.hero-visual{display:none}}
+
+section.s{padding:84px 0}
+section.alt{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sh{max-width:680px;margin-bottom:40px}
+.sh.center{margin-left:auto;margin-right:auto;text-align:center}
+.sh p{color:var(--muted);font-size:1.05rem;margin-top:12px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:940px){.g3,.g4{grid-template-columns:1fr 1fr}.g2{grid-template-columns:1fr}}
+@media (max-width:600px){.g3,.g4{grid-template-columns:1fr}}
+.prod{padding:24px;display:flex;flex-direction:column;gap:12px;text-decoration:none;transition:border-color .15s,box-shadow .15s}
+.prod:hover{border-color:var(--primary);box-shadow:var(--shadow)}
+.prod .pi{width:46px;height:46px;border-radius:12px;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center}
+.prod p{color:var(--muted);font-size:.92rem}
+.prod .more{margin-top:auto;color:var(--primary);font-weight:700;font-size:.9rem}
+.calc-sec{display:grid;grid-template-columns:1fr 1fr;gap:0;overflow:hidden}
+@media (max-width:860px){.calc-sec{grid-template-columns:1fr}}
+.calc-sec .l{padding:32px}.calc-sec .r{padding:32px;background:var(--hero);color:#C9D6E5;display:flex;flex-direction:column;justify-content:center}
+.calc-sec .r h3{color:#fff}
+.rng{display:grid;gap:8px;margin-bottom:22px}
+.rng .top{display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:.92rem}
+.rng .val{border:1px solid var(--line);border-radius:8px;padding:4px 10px;min-width:110px;text-align:right;background:var(--surface-2);font-weight:700;color:var(--navy)}
+input[type=range]{width:100%;accent-color:var(--primary)}
+.big-v{font-size:2.5rem;font-weight:800;color:#fff;line-height:1.1;margin:6px 0 18px}
+.split{display:flex;height:10px;border-radius:5px;overflow:hidden;margin:6px 0 12px;background:rgba(255,255,255,.12)}
+.split .a{background:#7FB2FF}.split .b{background:var(--accent)}
+.lg{display:flex;gap:18px;font-size:.86rem;flex-wrap:wrap}.lg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+.feat{display:flex;gap:16px;padding:22px}
+.feat .fi{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);color:#B26A00;display:grid;place-items:center;flex:none}
+:root[data-theme="dark"] .feat .fi{color:var(--accent)}
+.feat p{color:var(--muted);font-size:.92rem;margin-top:4px}
+.goal{position:relative;padding:24px;min-height:190px;display:flex;flex-direction:column;gap:8px;text-decoration:none;overflow:hidden;cursor:pointer;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:14px}
+.goal:hover{border-color:var(--primary)}
+.goal .gi{width:44px;height:44px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;margin-bottom:6px}
+.goal p{color:var(--muted);font-size:.9rem}
+.goal .gl{margin-top:auto;font-weight:700;color:var(--primary);font-size:.88rem}
+.approach{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center}
+@media (max-width:900px){.approach{grid-template-columns:1fr}}
+.alloc-row{display:grid;grid-template-columns:120px 1fr 48px;gap:12px;align-items:center;font-size:.9rem;margin-bottom:12px}
+.alloc-row .bar{height:12px;border-radius:6px;background:var(--line-2);overflow:hidden}.alloc-row .bar span{display:block;height:100%;border-radius:6px}
+.testi{padding:24px;display:flex;flex-direction:column;gap:16px}
+.testi p{font-size:.98rem}
+.who{display:flex;gap:12px;align-items:center;margin-top:auto}
+.av{width:40px;height:40px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;font-weight:800}
+.who b{display:block;font-size:.92rem;color:var(--navy)}.who span{font-size:.8rem;color:var(--muted)}
+.post{overflow:hidden;display:flex;flex-direction:column;text-decoration:none}
+.post .th{height:150px;background:linear-gradient(135deg,var(--primary-soft),var(--accent-soft));display:grid;place-items:center;color:var(--primary)}
+.post .pb{padding:18px;display:grid;gap:8px}
+.post .pb small{color:var(--muted)}
+.cta-band{background:linear-gradient(120deg,var(--primary),#0A2540);color:#DCE8F7;border-radius:20px;padding:44px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.cta-band h2{color:#fff}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;font-weight:700;color:var(--navy);list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:1.3rem;line-height:1;color:var(--primary)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{color:var(--muted);margin-top:10px;max-width:72ch}
+.pub-footer{background:var(--hero);color:#9FB2C7;padding:64px 0 28px;font-size:.88rem}
+.pub-footer .logo{color:#fff}
+.fgrid{display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:28px}
+@media (max-width:900px){.fgrid{grid-template-columns:1fr 1fr}}
+.pub-footer h4{color:#fff;margin-bottom:12px;font-size:.9rem}
+.pub-footer ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.pub-footer a{text-decoration:none}.pub-footer a:hover{color:#fff}
+.fmeta{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-top:22px;display:grid;gap:10px;font-size:.8rem;line-height:1.65}
+.fmeta b{color:#C9D6E5}
+.page-hero{background:var(--hero);color:#B8C8DA;padding:52px 0}
+.page-hero h1{color:#fff;font-size:clamp(1.9rem,3.6vw,2.7rem)}
+.page-hero p{margin-top:10px;max-width:60ch}
+
+/* ===================== APP (LOGGED IN) ===================== */
+.app{display:none;min-height:100vh}
+body.in-app .public{display:none}
+body.in-app .app{display:grid;grid-template-columns:240px 1fr}
+@media (max-width:980px){body.in-app .app{grid-template-columns:1fr}}
+.side{position:sticky;top:0;height:100vh;background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:18px 14px;overflow-y:auto}
+@media (max-width:980px){.side{position:fixed;left:0;top:0;bottom:0;width:260px;z-index:70;transform:translateX(-100%);transition:transform .25s}.side.open{transform:none}}
+.side .logo{padding:4px 8px 18px}
+.snav{display:grid;gap:2px}
+.snav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;text-decoration:none;color:var(--muted);font-weight:600;font-size:.92rem}
+.snav a:hover{background:var(--surface-2);color:var(--navy)}
+.snav a.on{background:var(--primary-soft);color:var(--primary)}
+.snav .sep{height:1px;background:var(--line);margin:10px 8px}
+.side-foot{margin-top:auto;padding:14px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line);font-size:.84rem}
+.app-main{min-width:0;display:flex;flex-direction:column}
+.atop{position:sticky;top:0;z-index:30;background:var(--surface);border-bottom:1px solid var(--line);height:64px;display:flex;align-items:center;gap:14px;padding:0 24px}
+.atop .menu-t{display:none}
+@media (max-width:980px){.atop .menu-t{display:grid}}
+.search{flex:1;max-width:420px;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface-2);border-radius:10px;padding:0 12px;height:40px;color:var(--faint)}
+.search input{border:0;background:transparent;outline:0;flex:1;color:var(--text)}
+.atop-r{margin-left:auto;display:flex;gap:10px;align-items:center}
+@media (max-width:640px){.search{display:none}.atop{padding:0 14px;gap:8px}.atop-r{gap:6px}.acontent{padding:16px}}
+.me{display:flex;align-items:center;gap:10px;cursor:pointer;background:none;border:0;padding:4px}
+.me .av{width:36px;height:36px}
+.me b{font-size:.88rem;color:var(--navy);display:block;line-height:1.2;text-align:left}.me small{font-size:.75rem;color:var(--muted)}
+.dd{position:absolute;right:0;top:calc(100% + 8px);background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);width:260px;padding:8px;display:none;z-index:60}
+.dd.show{display:block}
+.dd h5{margin:8px 10px 4px;font-size:.72rem;color:var(--faint);font-weight:700}
+.dd a{display:flex;gap:10px;align-items:center;padding:9px 10px;border-radius:8px;text-decoration:none;font-size:.9rem;font-weight:600}
+.dd a:hover{background:var(--surface-2);color:var(--primary)}
+.subnav{background:var(--surface);border-bottom:1px solid var(--line);padding:0 24px;display:flex;gap:4px;overflow-x:auto}
+.subnav a{padding:14px 14px;text-decoration:none;font-weight:700;color:var(--muted);border-bottom:2.5px solid transparent;white-space:nowrap;font-size:.92rem}
+.subnav a.on{color:var(--primary);border-color:var(--primary)}
+.subnav a:hover{color:var(--navy)}
+.acontent{padding:24px;display:grid;grid-template-columns:minmax(0,1fr);gap:22px;max-width:1280px;width:100%}
+.acontent>*{min-width:0}
+.subnav[hidden]{display:none}
+.ahead{display:flex;justify-content:space-between;align-items:end;gap:14px;flex-wrap:wrap}
+.ahead h1{font-size:1.6rem}
+.welcome{background:linear-gradient(115deg,var(--hero),var(--hero-2));color:#C9D6E5;border-radius:16px;padding:28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.welcome h2{color:#fff;font-size:1.5rem}
+.welcome p{margin-top:6px}
+.tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+@media (max-width:900px){.tiles{grid-template-columns:repeat(3,1fr)}}
+.tile{padding:18px 12px;text-align:center;display:grid;gap:8px;justify-items:center;text-decoration:none;font-weight:700;font-size:.88rem;color:var(--navy);position:relative}
+.tile:hover{border-color:var(--primary)}
+.tile .ti{width:44px;height:44px;border-radius:12px;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center}
+.tile .chip{position:absolute;top:8px;right:8px;font-size:.65rem;padding:1px 7px}
+.secthead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:12px}
+.secthead a{color:var(--primary);font-weight:700;text-decoration:none;font-size:.9rem}
+.pills{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
+.pill{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-weight:600;font-size:.86rem;cursor:pointer;white-space:nowrap;color:var(--muted)}
+.pill[aria-pressed="true"]{background:var(--primary);border-color:var(--primary);color:#fff}
+.hscroll{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);gap:14px;overflow-x:auto;padding-bottom:4px}
+.fcard{padding:16px;display:flex;flex-direction:column;gap:10px;cursor:pointer;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.fcard:hover{border-color:var(--primary)}
+.fcard .inv{font-size:.72rem;font-weight:700;color:var(--muted)}
+.fcard b{color:var(--navy);font-size:.92rem;line-height:1.35}
+.fcard .ret{font-size:1.3rem;font-weight:800}
+.fcard small{color:var(--muted);font-size:.76rem}
+.amc{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-weight:800;font-size:.8rem;color:#fff;flex:none}
+.split2{display:grid;grid-template-columns:1.5fr 1fr;gap:22px}
+@media (max-width:1000px){.split2{grid-template-columns:1fr}}
+.worth{display:flex;justify-content:space-between;gap:18px;align-items:center;flex-wrap:wrap}
+.worth .srcs{display:flex;gap:8px;flex-wrap:wrap}
+.worth .srcs span{font-size:.75rem;font-weight:700;border:1px solid var(--line);border-radius:6px;padding:3px 8px;color:var(--muted)}
+.blog-l a{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-2);text-decoration:none;font-weight:600;font-size:.92rem}
+.blog-l a:last-child{border-bottom:0}.blog-l small{color:var(--muted);white-space:nowrap;font-weight:500}
+.notice{display:flex;gap:14px;align-items:center;justify-content:space-between;background:var(--accent-soft);border:1px solid #F7DDA8;border-radius:14px;padding:16px 18px;flex-wrap:wrap}
+:root[data-theme="dark"] .notice{border-color:#4A3A16}
+.notice b{color:var(--navy)}
+.trustrow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:700px){.trustrow{grid-template-columns:1fr}}
+.trustrow div{display:flex;gap:12px;align-items:center;padding:14px;font-size:.84rem;color:var(--muted)}
+.trustrow b{display:block;color:var(--navy);font-size:.9rem}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+@media (max-width:800px){.metrics{grid-template-columns:1fr 1fr}}
+.metrics>div{background:var(--surface);padding:18px}
+.metrics small{color:var(--muted);font-size:.8rem;display:block}
+.metrics b{font-size:1.35rem;color:var(--navy);font-weight:800}
+.metrics .sub{font-size:.8rem;font-weight:700}
+.seg{display:inline-flex;background:var(--line-2);border-radius:10px;padding:3px;gap:3px}
+.seg button{border:0;background:transparent;padding:7px 14px;border-radius:8px;font-weight:700;cursor:pointer;color:var(--muted);font-size:.85rem;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--primary);box-shadow:var(--shadow-sm)}
+.ptabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.ptabs button{background:none;border:0;padding:12px 16px;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap}
+.ptabs button[aria-pressed="true"]{color:var(--primary);border-color:var(--primary)}
+.gport{display:grid;grid-template-columns:1fr auto auto;gap:18px;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line-2)}
+.gport:last-child{border-bottom:0}
+.gport .bar{height:6px;border-radius:3px;background:var(--line-2);margin-top:8px;max-width:260px;overflow:hidden}.gport .bar span{display:block;height:100%;background:var(--primary)}
+@media (max-width:640px){.gport{grid-template-columns:1fr auto}.gport .act{display:none}}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line-2)}
+th{color:var(--muted);font-weight:700;font-size:.78rem;background:var(--surface-2)}
+td.r,th.r{text-align:right}
+.tbl{overflow-x:auto}
+.linkish{background:none;border:0;padding:0;color:var(--navy);font-weight:700;cursor:pointer;text-align:left}
+.linkish:hover{color:var(--primary)}
+.inv-tiles{display:grid;grid-template-columns:repeat(7,1fr);gap:12px}
+@media (max-width:1100px){.inv-tiles{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:600px){.inv-tiles{grid-template-columns:repeat(2,1fr)}}
+.cat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+@media (max-width:900px){.cat-grid{grid-template-columns:repeat(3,1fr)}}
+.sp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media (max-width:900px){.sp-grid{grid-template-columns:1fr 1fr}}
+.sp{padding:18px;display:grid;gap:4px;cursor:pointer;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.sp:hover{border-color:var(--primary)}
+.sp b{color:var(--navy)}.sp span{color:var(--muted);font-size:.85rem}
+.flist .row{display:grid;grid-template-columns:auto 1fr repeat(3,74px) 84px 70px auto;gap:14px;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line-2)}
+.flist .row:last-child{border-bottom:0}
+.flist .head{background:var(--surface-2);font-size:.76rem;font-weight:700;color:var(--muted);padding-top:10px;padding-bottom:10px}
+.flist .r{text-align:right}
+.flist .nm small{display:block;color:var(--muted);font-size:.78rem}
+@media (max-width:900px){.flist .row{grid-template-columns:auto 1fr 74px auto}.flist .c1,.flist .c5,.flist .cn,.flist .cr{display:none}}
+.add{border:1.5px solid var(--primary);background:transparent;color:var(--primary);border-radius:8px;padding:6px 12px;font-weight:700;cursor:pointer;font-size:.82rem;white-space:nowrap}
+.add.on{background:var(--primary);color:#fff}
+.layout-f{display:grid;grid-template-columns:250px 1fr;gap:20px;align-items:start}
+@media (max-width:900px){.layout-f{grid-template-columns:1fr}}
+.fpanel{padding:18px;display:grid;gap:18px;position:sticky;top:84px}
+@media (max-width:900px){.fpanel{position:static}}
+.fpanel h4{font-size:.85rem;margin-bottom:6px}
+.fpanel label{display:flex;gap:8px;align-items:center;font-size:.88rem;color:var(--muted);padding:3px 0;cursor:pointer}
+.tool{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.tool input,.tool select,.fld input,.fld select{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:10px 12px;color:var(--text)}
+.tool input{flex:1;min-width:200px}
+.empty{text-align:center;padding:48px 20px;color:var(--muted)}
+.empty .ei{width:56px;height:56px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;margin:0 auto 14px}
+/* fund detail */
+.fhead{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:flex-start}
+.fstats{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+@media (max-width:900px){.fstats{grid-template-columns:repeat(3,1fr)}}
+.fstats div{background:var(--surface);padding:14px 16px}
+.fstats small{display:block;color:var(--muted);font-size:.76rem}
+.fstats b{font-size:1.02rem;color:var(--navy)}
+.riskm{display:inline-flex;gap:3px;vertical-align:middle;margin-left:6px}.riskm i{width:10px;height:6px;border-radius:2px;background:var(--line)}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:16px 24px}
+.kv small{display:block;color:var(--muted);font-size:.78rem}
+.kv b{color:var(--navy);font-size:.92rem;font-weight:600}
+.rbtn{display:flex;gap:6px}.rbtn button{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:5px 11px;font-weight:700;cursor:pointer;font-size:.8rem;color:var(--muted)}
+.rbtn button[aria-pressed="true"]{background:var(--primary-soft);color:var(--primary);border-color:var(--primary)}
+.sbar{height:8px;border-radius:4px;background:var(--line-2);overflow:hidden}.sbar span{display:block;height:100%;background:var(--primary)}
+/* bonds */
+.bond{padding:18px;display:grid;gap:12px}
+.bond .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.bond .ytm{font-size:1.5rem;font-weight:800;color:var(--up)}
+.bond .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:.8rem;color:var(--muted)}
+.bond .meta b{display:block;color:var(--navy);font-size:.88rem}
+/* drawer modal toast */
+.scrim{position:fixed;inset:0;background:rgba(5,15,30,.5);z-index:80;display:none}.scrim.show{display:block}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(460px,100%);background:var(--surface);z-index:90;transform:translateX(100%);transition:transform .28s ease;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.drawer.show{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line)}
+.db{padding:20px 22px;overflow-y:auto;flex:1;display:grid;gap:14px;align-content:start}
+.df{padding:16px 22px;border-top:1px solid var(--line)}
+.x{background:none;border:0;font-size:1.6rem;cursor:pointer;color:var(--muted);line-height:1}
+.bitem{border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:12px}
+.fld{display:grid;gap:6px}.fld label{font-size:.82rem;font-weight:700;color:var(--muted)}
+.fld input,.fld select{width:100%}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal{position:fixed;inset:0;z-index:95;display:none;place-items:center;padding:20px}.modal.show{display:grid}
+.mbox{background:var(--surface);border-radius:20px;width:min(860px,100%);display:grid;grid-template-columns:1fr 1fr;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.3)}
+@media (max-width:760px){.mbox{grid-template-columns:1fr}.mbox .ml{display:none}}
+.mbox .ml{background:linear-gradient(150deg,var(--hero),var(--hero-2));color:#C9D6E5;padding:36px;display:flex;flex-direction:column;gap:16px}
+.mbox .ml h3{color:#fff;font-size:1.4rem}
+.mbox .ml li{margin-bottom:8px}
+.mbox .mr{padding:36px;display:grid;gap:14px;align-content:center}
+.sepor{display:flex;align-items:center;gap:10px;color:var(--faint);font-size:.82rem}.sepor::before,.sepor::after{content:"";flex:1;height:1px;background:var(--line)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(140px);background:var(--navy);color:var(--bg);padding:12px 18px;border-radius:12px;font-weight:600;z-index:100;transition:transform .25s;max-width:90vw}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.demo-flag{position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;background:var(--accent);color:#2B1D00;font-size:.75rem;font-weight:700;padding:5px 10px;border-radius:8px}
+.kyc-steps{display:grid;gap:14px}
+.kstep{display:flex;gap:16px;padding:18px;border:1px solid var(--line);border-radius:14px}
+.kstep .kn{width:34px;height:34px;border-radius:50%;background:var(--primary);color:#fff;display:grid;place-items:center;font-weight:800;flex:none}
+.kstep.done .kn{background:var(--up)}
+.footnote{font-size:.78rem;color:var(--faint);line-height:1.6}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ========================= PUBLIC WEBSITE ========================= -->
+<div class="public">
+  <div class="topbar"><div class="wrap">
+    <div class="seglinks"><a href="#/" class="on">Personal</a><a href="#/">Private wealth</a><a href="#/">Partners</a></div>
+    <div class="seglinks hide-sm"><a href="#/contact">Support: 1800 XXX XXXX</a><a href="#/">NRI investors</a></div>
+  </div></div>
+
+  <header class="pub-header"><div class="wrap pub-nav">
+    <a class="logo" href="#/"><span class="logo-mark">K</span>Kosha Wealth</a>
+    <ul class="menu" id="pubMenu">
+      <li><button aria-haspopup="true">Products <svg class="i caret" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="mega">
+          <a href="#/mutual-funds"><span class="mi" data-ic="pie"></span><div><b>Mutual funds</b><span>1,500+ funds with SIP from ₹500</span></div></a>
+          <a href="#/mutual-funds"><span class="mi" data-ic="repeat"></span><div><b>SIP, STP and SWP</b><span>Invest, transfer or withdraw on schedule</span></div></a>
+          <a href="#/mutual-funds"><span class="mi" data-ic="layers"></span><div><b>Bonds</b><span>Listed bonds with regular interest</span></div></a>
+          <a href="#/mutual-funds"><span class="mi" data-ic="bank"></span><div><b>Fixed deposits</b><span>Rated corporate FDs</span></div></a>
+          <a href="#/mutual-funds"><span class="mi" data-ic="trend"></span><div><b>Stocks</b><span>Research-backed stock ideas</span></div></a>
+          <a href="#/mutual-funds"><span class="mi" data-ic="umbrella"></span><div><b>NPS and insurance</b><span>Retirement and protection</span></div></a>
+        </div></li>
+      <li><button aria-haspopup="true">Goals <svg class="i caret" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="mega" id="goalMega"></div></li>
+      <li><a href="#/calculators">Calculators</a></li>
+      <li><a href="#/research">Research</a></li>
+      <li><a href="#/about">About us</a></li>
+    </ul>
+    <div class="pub-actions">
+      <button class="icon-btn theme-t" aria-label="Switch to dark mode"></button>
+      <button class="btn btn-light hide-sm" data-login>Log in</button>
+      <button class="btn btn-primary" data-login>Open free account</button>
+      <button class="icon-btn burger" id="burger" aria-label="Menu" aria-expanded="false"><svg class="i" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div></header>
+
+  <main id="pubMain"></main>
+
+  <footer class="pub-footer"><div class="wrap">
+    <div class="fgrid">
+      <div><a class="logo" href="#/"><span class="logo-mark">K</span>Kosha Wealth</a>
+        <p style="margin-top:14px;max-width:36ch">Goal-based investing with research-backed fund choices and a dedicated advisor for every family.</p>
+        <p style="margin-top:14px">support@koshawealth.in<br>1800 XXX XXXX · Mon–Sat, 9am–7pm</p></div>
+      <div><h4>Invest</h4><ul><li><a href="#/mutual-funds">Mutual funds</a></li><li><a href="#/mutual-funds">SIP</a></li><li><a href="#/mutual-funds">Tax-saving ELSS</a></li><li><a href="#/mutual-funds">Bonds</a></li><li><a href="#/mutual-funds">Fixed deposits</a></li></ul></div>
+      <div><h4>Calculators</h4><ul><li><a href="#/calculators">SIP calculator</a></li><li><a href="#/calculators">Lump sum calculator</a></li><li><a href="#/calculators">Step-up SIP calculator</a></li><li><a href="#/calculators">SWP calculator</a></li><li><a href="#/calculators">Retirement calculator</a></li></ul></div>
+      <div><h4>Company</h4><ul><li><a href="#/about">About us</a></li><li><a href="#/research">Research and blog</a></li><li><a href="#/about">Careers</a></li><li><a href="#/contact">Contact us</a></li><li><a href="#/about">Partner with us</a></li></ul></div>
+      <div><h4>Investor support</h4><ul><li><a href="#/contact">FAQs</a></li><li><a href="#/contact">Grievance redressal</a></li><li><a href="#/about">Investor charter</a></li><li><a href="#/about">Privacy policy</a></li><li><a href="#/about">Terms and conditions</a></li></ul></div>
+    </div>
+    <div class="fmeta">
+      <p><b>Fund houses on our platform:</b> placeholder list of AMC partners goes here.</p>
+      <p><b>[Company legal name] Pvt. Ltd.</b> · AMFI-registered Mutual Fund Distributor · ARN-XXXXX · Valid till DD/MM/YYYY · CIN XXXXXXXXXXXXXXXXXXXXX · Registered office: [address], Chennai, Tamil Nadu.</p>
+      <p>Mutual fund investments are subject to market risks. Read all scheme-related documents carefully before investing. Past performance is not indicative of future returns.</p>
+      <p>Demonstration website: all fund names, numbers, reviews and statistics are illustrative placeholders. © 2026 Kosha Wealth.</p>
+    </div>
+  </div></footer>
+</div>
+
+<!-- ========================= LOGGED-IN APP ========================= -->
+<div class="app">
+  <aside class="side" id="side">
+    <a class="logo" href="#/app/dashboard"><span class="logo-mark">K</span>Kosha Wealth</a>
+    <nav class="snav" id="snav" aria-label="Products"></nav>
+    <div class="side-foot"><b style="color:var(--navy)">Your advisor</b><p class="muted" style="margin:4px 0 10px">Priya S. · Wealth manager</p><button class="btn btn-outline btn-sm" style="width:100%" data-toast="Your advisor will call you within 30 minutes (demo)">Request a call</button></div>
+  </aside>
+  <div class="app-main">
+    <div class="atop">
+      <button class="icon-btn menu-t" id="sideBtn" aria-label="Open menu"><svg class="i" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      <label class="search"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="gsearch" placeholder="Search funds, bonds, stocks" aria-label="Search"></label>
+      <div class="atop-r">
+        <button class="icon-btn theme-t" aria-label="Switch to dark mode"></button>
+        <button class="icon-btn" id="cartBtn" aria-label="Investment basket"><svg class="i" viewBox="0 0 24 24"><path d="M5 7h14l-1.5 9h-11z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="badge" id="cartN" hidden>0</span></button>
+        <div style="position:relative"><button class="icon-btn" id="bellBtn" aria-label="Notifications"><svg class="i" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></svg></button>
+          <div class="dd" id="bellDd" style="width:300px"><h5>Notifications</h5><div class="empty" style="padding:24px 10px"><p class="small">You're all caught up. SIP reminders and order updates will appear here.</p></div></div></div>
+        <div style="position:relative"><button class="me" id="meBtn" aria-haspopup="true"><span class="av">RK</span><span class="hide-sm"><b>Ravi K.</b><small>KYC verified</small></span></button>
+          <div class="dd" id="meDd">
+            <h5>Profile</h5><a href="#/app/profile/investors">Manage investors</a><a href="#/app/profile/bank">Bank details and mandates</a><a href="#/app/profile/nominee">Nominees</a><a href="#/app/profile/risk">Risk profile</a>
+            <h5>Reports</h5><a href="#/app/reports">Statements and reports</a>
+            <h5>Account</h5><a href="#/app/kyc">KYC status</a><a href="#/app/help">Help and support</a><a href="#/" id="logout">Log out</a>
+          </div></div>
+      </div>
+    </div>
+    <nav class="subnav" id="subnav" hidden></nav>
+    <div class="acontent" id="appMain"></div>
+  </div>
+</div>
+
+<!-- shared overlays -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Investment basket" aria-hidden="true">
+  <div class="dh"><div><h3>Investment basket</h3><small class="muted" id="bsub"></small></div><button class="x" id="closeDrawer" aria-label="Close">×</button></div>
+  <div class="db" id="bbody"></div>
+  <div class="df" id="bfoot"></div>
+</aside>
+<div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="lt">
+  <div class="mbox">
+    <div class="ml"><h3>Invest with a plan, not a guess</h3><ul style="padding-left:18px;margin:0"><li>Dedicated advisor for your family</li><li>Research-backed fund recommendations</li><li>100% paperless KYC in minutes</li><li>Track all your investments in one place</li></ul><p class="small" style="margin-top:auto;opacity:.8">Your data is encrypted and never shared without consent.</p></div>
+    <div class="mr">
+      <div style="display:flex;justify-content:space-between;align-items:center"><h3 id="lt">Log in or create account</h3><button class="x" data-close aria-label="Close">×</button></div>
+      <div class="fld"><label for="mob">Mobile number</label><input id="mob" inputmode="tel" placeholder="Enter 10-digit mobile number"></div>
+      <button class="btn btn-primary" id="otpBtn">Get OTP</button>
+      <div class="sepor">or</div>
+      <button class="btn btn-light" id="gBtn">Continue with Google</button>
+      <p class="footnote">By continuing you agree to the Terms and Privacy Policy. Demo: any input logs you in.</p>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="demo-flag">Demo prototype</div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const inrS=n=>n>=1e7?'₹'+(n/1e7).toFixed(2)+' Cr':n>=1e5?'₹'+(n/1e5).toFixed(2)+' L':inr(n);
+const pct=(v,d=2)=>`<span class="${v>=0?'pos':'neg'}">${v>=0?'+':''}${v.toFixed(d)}%</span>`;
+const stars=n=>'★'.repeat(n)+'☆'.repeat(5-n);
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2600)}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-toast]');if(t)toast(t.dataset.toast)});
+
+/* ---------- icons ---------- */
+const IC={home:'<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/>',pie:'<path d="M12 3a9 9 0 1 0 9 9h-9z"/><path d="M15 3.5A9 9 0 0 1 20.5 9H15z"/>',repeat:'<path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/>',layers:'<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/>',bank:'<path d="M3 10 12 4l9 6"/><path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8"/><path d="M3 20h18"/>',trend:'<path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/>',umbrella:'<path d="M3 12a9 9 0 0 1 18 0z"/><path d="M12 12v6a2 2 0 0 0 4 0"/>',shield:'<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/>',chat:'<path d="M4 5h16v11H8l-4 4z"/>',help:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14"/><path d="M12 17.5v.01"/>',grid:'<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',spark:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',cap:'<path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5"/>',moon:'<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/>',house:'<path d="M4 20V10l8-6 8 6v10z"/><path d="M10 20v-6h4v6"/>',plane:'<path d="M2 16l20-8-8 14-2-6z"/>',life:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="m5.6 5.6 3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',check:'<path d="m5 12 5 5 9-10"/>',calc:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M8 15h2M12 15h4"/>',report:'<path d="M6 3h9l4 4v14H6z"/><path d="M9 13h6M9 17h6M9 9h3"/>',coin:'<circle cx="12" cy="12" r="9"/><path d="M15 9h-4.5a1.5 1.5 0 0 0 0 3h3a1.5 1.5 0 0 1 0 3H9M12 7v2M12 15v2"/>',lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 13.5a7 7 0 0 1 4 6.5"/>'};
+const ic=n=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${IC[n]||''}</svg>`;
+function paintIcons(root=document){root.querySelectorAll('[data-ic]').forEach(e=>{if(!e.firstChild)e.innerHTML=ic(e.dataset.ic)})}
+
+/* ---------- theme (light default) ---------- */
+const R=document.documentElement;
+function setTheme(t){R.setAttribute('data-theme',t);$$('.theme-t').forEach(b=>{b.innerHTML=ic(t==='dark'?'sun':'moon');const l=t==='dark'?'Switch to light mode':'Switch to dark mode';b.setAttribute('aria-label',l);b.title=l});try{localStorage.setItem('kw2-theme',t)}catch(e){}}
+let th='light';try{th=localStorage.getItem('kw2-theme')||'light'}catch(e){}
+setTheme(th==='dark'?'dark':'light');
+document.addEventListener('click',e=>{if(e.target.closest('.theme-t'))setTheme(R.getAttribute('data-theme')==='dark'?'light':'dark')});
+
+/* ---------- data (illustrative) ---------- */
+const GOALS=[
+ {id:'edu',ic:'cap',name:"Child's education",word:"your child's education",cost:25,years:12,desc:'Build a dedicated fund for college fees that rise faster than inflation.'},
+ {id:'ret',ic:'sun',name:'Retirement',word:'a confident retirement',cost:200,years:25,desc:'Create a corpus that pays you a steady income after you stop working.'},
+ {id:'home',ic:'house',name:'Dream home',word:'your dream home',cost:20,years:6,desc:'Save for the down payment and keep your home loan small.'},
+ {id:'emg',ic:'life',name:'Emergency fund',word:'an emergency fund',cost:3,years:1,desc:'Keep six months of expenses ready in low-risk, easy-to-withdraw funds.'},
+ {id:'trip',ic:'plane',name:'Travel',word:'that family holiday',cost:4,years:2,desc:'Plan your next trip without a credit card bill afterwards.'},
+ {id:'wealth',ic:'trend',name:'Wealth creation',word:'long-term wealth',cost:100,years:15,desc:'Grow your money steadily with a diversified long-term portfolio.'}];
+const AMCS=[['Arya','#0B5CD5'],['Bharat','#0F8A4C'],['Kaveri','#7C3AED'],['Meridian','#D97706'],['Sahyadri','#DB2777'],['Vistara','#0891B2']];
+const CATS=['Equity','Debt','Hybrid','ELSS','Index','Gold','Liquid'];
+const SUB={Equity:['Flexi Cap','Large Cap','Mid Cap','Small Cap','Large & Mid Cap'],Debt:['Corporate Bond','Short Duration','Banking & PSU'],Hybrid:['Balanced Advantage','Aggressive Hybrid'],ELSS:['Tax Saver'],Index:['Nifty 50 Index','Nifty Next 50 Index'],Gold:['Gold'],Liquid:['Liquid','Overnight']};
+const RISK={Equity:'Very high',Debt:'Moderate',Hybrid:'High',ELSS:'Very high',Index:'Very high',Gold:'High',Liquid:'Low'};
+let seed=11;const rnd=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
+const FUNDS=[];let fid=0;
+for(const c of CATS){for(const s of SUB[c]){const n=c==='Equity'?3:2;for(let k=0;k<n;k++){const a=AMCS[Math.floor(rnd()*AMCS.length)];
+ const b={Equity:14,Debt:7,Hybrid:11,ELSS:14,Index:12.5,Gold:12,Liquid:6.6}[c],v={Equity:6,Debt:1,Hybrid:3.5,ELSS:6,Index:4,Gold:6,Liquid:.3}[c];
+ FUNDS.push({id:++fid,name:`${a[0]} ${s} Fund`,amc:a[0],col:a[1],cat:c,sub:s,risk:RISK[c],r1:+(b-7+rnd()*v*2-v*.6).toFixed(2),r3:+(b+rnd()*v-v*.4).toFixed(2),r5:+(b-1+rnd()*v*.8).toFixed(2),
+ rating:1+Math.floor(rnd()*5),nav:+(12+rnd()*190).toFixed(3),aum:Math.round(900+rnd()*80000),exp:+(.45+rnd()*1.3).toFixed(2),minsip:rnd()>.45?500:1000,age:2+Math.floor(rnd()*18),
+ inv:+(2+rnd()*30).toFixed(1),mgr:['A. Krishnan','S. Iyer','R. Menon','P. Rao','K. Natarajan','V. Sharma'][Math.floor(rnd()*6)]})}}}
+FUNDS.forEach(f=>{if(f.rating<4&&f.r3>14)f.rating=4});
+const SELECT=FUNDS.filter(f=>f.cat==='Equity'||f.cat==='Hybrid').sort((a,b)=>b.r3-a.r3).slice(0,8).map(f=>f.id);
+const BONDS=[['Coromandel Finance Ltd','A+','Secured',10.85,'2Y 4M',10045,'Monthly'],['Palar Housing Finance','AA-','Secured',10.2,'3Y 1M',100250,'Quarterly'],['Nilgiri Capital Ltd','BBB+','Secured',11.4,'1Y 8M',99870,'Monthly'],['Vaigai Small Finance Bank','A','Unsecured',10.6,'4Y 9M',104100,'Annually'],['State Power Utility Bond','AAA','Secured',8.15,'7Y 2M',10210,'Semi-annually'],['Kaveri Microfinance Ltd','A-','Secured',11.1,'1Y 2M',100900,'Monthly']];
+const BLOGS=[['Markets fell this month. Should you pause your SIP?','Market insight','12 Oct 2026','4 min'],['Debt funds or fixed deposits after the latest tax changes','Research','05 Oct 2026','6 min'],['How much should you keep in an emergency fund?','Basics','28 Sep 2026','3 min'],['Monthly market outlook: October 2026','Outlook','01 Oct 2026','5 min']];
+
+/* ---------- maths ---------- */
+const sipFV=(p,y,r)=>{const i=r/1200,n=y*12;return p*((Math.pow(1+i,n)-1)/i)*(1+i)};
+const sipFor=(fv,y,r=12)=>fv/sipFV(1,y,r);
+
+/* ===================== PUBLIC PAGES ===================== */
+$('#goalMega').innerHTML=GOALS.map(g=>`<a href="#/goals/${g.id}"><span class="mi" data-ic="${g.ic}"></span><div><b>${g.name}</b><span>${g.desc.split('.')[0]}</span></div></a>`).join('');
+$('#burger').onclick=()=>{const o=$('#pubMenu').classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)};
+
+function calcBlock(){return `<div class="card calc-sec">
+ <div class="l"><h3 style="margin-bottom:20px">SIP calculator</h3>
+  <div class="rng"><div class="top"><span>Monthly investment</span><span class="val num" id="hc_aL"></span></div><input type="range" id="hc_a" min="500" max="100000" step="500" value="10000"></div>
+  <div class="rng"><div class="top"><span>Investment period</span><span class="val num" id="hc_yL"></span></div><input type="range" id="hc_y" min="1" max="40" value="15"></div>
+  <div class="rng"><div class="top"><span>Expected return (per year)</span><span class="val num" id="hc_rL"></span></div><input type="range" id="hc_r" min="4" max="20" step=".5" value="12"></div></div>
+ <div class="r"><small>Estimated value</small><div class="big-v num" id="hc_v"></div>
+  <div class="split"><span class="a" id="hc_sa"></span><span class="b" id="hc_sb"></span></div>
+  <div class="lg num"><span><i style="background:#7FB2FF"></i>Invested <b id="hc_i" style="color:#fff"></b></span><span><i style="background:var(--accent)"></i>Gains <b id="hc_g" style="color:#fff"></b></span></div>
+  <p class="small" style="margin-top:18px;opacity:.75">Illustration only. Mutual fund returns are market-linked and not guaranteed.</p>
+  <div style="margin-top:20px"><button class="btn btn-white" data-login>Create my investment plan</button></div></div></div>`}
+function wireCalc(){const run=()=>{const a=+$('#hc_a').value,y=+$('#hc_y').value,r=+$('#hc_r').value,v=sipFV(a,y,r),i=a*y*12;
+ $('#hc_aL').textContent=inr(a);$('#hc_yL').textContent=y+' years';$('#hc_rL').textContent=r+'%';$('#hc_v').textContent=inrS(v);$('#hc_i').textContent=inrS(i);$('#hc_g').textContent=inrS(v-i);
+ $('#hc_sa').style.width=(i/v*100)+'%';$('#hc_sb').style.width=(100-i/v*100)+'%'};['#hc_a','#hc_y','#hc_r'].forEach(s=>$(s).oninput=run);run()}
+
+const homeHTML=()=>`
+<section class="hero"><div class="wrap hero-grid">
+ <div>
+  <h1>Invest with clarity for <span class="rot" id="rot">${GOALS[0].word}</span></h1>
+  <p class="lead">Research-backed mutual funds, a dedicated advisor for your family, and one clear plan for every goal you're saving for.</p>
+  <div class="hero-cta"><button class="btn btn-primary" data-login>Start investing</button><a class="btn btn-ghost-w" href="#/contact">Talk to an expert</a></div>
+  <div class="hero-stats num"><div><b>₹XX,XXX Cr</b><span>Assets under advice</span></div><div><b>X.X lakh</b><span>Active SIPs</span></div><div><b>XX years</b><span>Of investor trust</span></div></div>
+ </div>
+ <div class="hero-visual" aria-hidden="true">
+  <div class="hv-card hv-main"><small>Portfolio value</small><div class="v num">₹18,42,560</div><div class="pos small" style="font-weight:700">+₹3,12,480 (20.4%) overall</div>
+   <svg viewBox="0 0 360 110" width="100%" style="margin-top:12px"><defs><linearGradient id="hg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#0B5CD5" stop-opacity=".25"/><stop offset="1" stop-color="#0B5CD5" stop-opacity="0"/></linearGradient></defs><path d="M0 90 L30 84 L60 88 L90 70 L120 74 L150 60 L180 64 L210 48 L240 52 L270 36 L300 40 L330 22 L360 18 L360 110 L0 110Z" fill="url(#hg)"/><path d="M0 90 L30 84 L60 88 L90 70 L120 74 L150 60 L180 64 L210 48 L240 52 L270 36 L300 40 L330 22 L360 18" fill="none" stroke="#0B5CD5" stroke-width="2.5"/></svg></div>
+  <div class="hv-card hv-goal"><small style="color:#5F6F82">Child's education</small><b style="display:block;color:#0A2540">68% on track</b><div class="prog"><span style="width:68%"></span></div><div class="hv-row"><span>₹10.2 L</span><span style="color:#5F6F82">of ₹15 L</span></div></div>
+  <div class="hv-card hv-sip"><small style="color:#5F6F82">Next SIP</small><b style="display:block;color:#0A2540">₹15,000 on 5 Nov</b><div class="hv-row"><span style="color:#0F8A4C;font-weight:700">● Autopay active</span></div></div>
+ </div>
+</div></section>
+
+<section class="s"><div class="wrap">
+ <div class="sh"><h2>Investment options for every goal</h2><p>Start with mutual funds and add fixed income, stocks and retirement products as your plan grows.</p></div>
+ <div class="g3">
+  ${[['pie','Mutual funds','Choose from 1,500+ schemes across 40+ fund houses, or follow our curated select list.'],['repeat','SIP, STP and SWP','Automate monthly investing, move lump sums in stages, or set up a regular income.'],['layers','Bonds','Exchange-listed bonds with fixed interest payouts, filtered by rating, yield and tenure.'],['bank','Corporate fixed deposits','Rated deposits from established companies with monthly or annual interest.'],['trend','Stocks','Open a trading account and invest with research-backed recommendations.'],['umbrella','NPS and insurance','Plan retirement with tax benefits and protect your family with the right cover.']].map(p=>`<a class="card prod" href="#/mutual-funds"><span class="pi" data-ic="${p[0]}"></span><h3>${p[1]}</h3><p>${p[2]}</p><span class="more">Explore ${p[1].split(',')[0].toLowerCase()}</span></a>`).join('')}
+ </div></div></section>
+
+<section class="s alt"><div class="wrap">
+ <div class="sh"><h2>Small monthly investments, big long-term impact</h2><p>See how a disciplined SIP can grow over time.</p></div>
+ ${calcBlock()}
+</div></section>
+
+<section class="s"><div class="wrap">
+ <div class="sh"><h2>Choosing investments is easy. Choosing the right ones isn't.</h2><p>Every investor gets a dedicated advisor backed by our in-house research team.</p></div>
+ <div class="g4">
+  ${[['user','Understand your goals','We start by learning what you are investing for and your comfort with risk.'],['report','Research-backed picks','Funds are selected using a documented, quarterly-reviewed process.'],['grid','Smart technology','Track goals, returns and tax in one dashboard on any device.'],['shield','Stay invested','We guide you through market falls so short-term noise doesn\'t derail long-term goals.']].map(f=>`<div class="card feat"><span class="fi" data-ic="${f[0]}"></span><div><h3>${f[1]}</h3><p>${f[2]}</p></div></div>`).join('')}
+ </div>
+ <div style="margin-top:28px;text-align:center"><a class="btn btn-outline" href="#/contact">Talk to an expert</a></div>
+</div></section>
+
+<section class="s alt"><div class="wrap">
+ <div class="sh"><h2>Your goals, guided by expert planning</h2><p>Pick a goal to see how much you need to invest each month.</p></div>
+ <div class="g3">${GOALS.map(g=>{const f=g.cost*1e5*Math.pow(1.06,g.years);return `<a class="goal" href="#/goals/${g.id}"><span class="gi" data-ic="${g.ic}"></span><h3>${g.name}</h3><p>${g.desc}</p><span class="gl num">From ${inr(sipFor(f,g.years))} a month</span></a>`}).join('')}</div>
+</div></section>
+
+<section class="s"><div class="wrap approach">
+ <div><h2>A disciplined approach to building portfolios</h2><p class="muted" style="margin-top:12px;font-size:1.05rem">We spread your money across different investment styles and asset classes, so no single market phase decides your outcome. Every portfolio is reviewed quarterly and rebalanced when it drifts.</p>
+  <ul style="margin:20px 0 0;padding-left:18px;color:var(--muted);display:grid;gap:8px"><li>Diversified across large, mid and small companies</li><li>Debt and gold to cushion market falls</li><li>Rebalancing alerts when your mix drifts</li></ul>
+  <a class="btn btn-primary" style="margin-top:24px" href="#/about">See our research process</a></div>
+ <div class="card pad"><h3 style="margin-bottom:18px">Sample moderate-risk portfolio</h3>
+  ${[['Large cap',30,'#0B5CD5'],['Flexi cap',20,'#3B82F6'],['Mid and small cap',15,'#7C3AED'],['Debt funds',25,'#0F8A4C'],['Gold',10,'#F5A524']].map(a=>`<div class="alloc-row"><span>${a[0]}</span><div class="bar"><span style="width:${a[1]*2.6}%;background:${a[2]}"></span></div><b class="num" style="text-align:right">${a[1]}%</b></div>`).join('')}
+  <p class="footnote" style="margin-top:14px">Illustrative allocation. Your advisor recommends a mix based on your goals and risk profile.</p></div>
+</div></section>
+
+<section class="s alt"><div class="wrap">
+ <div class="sh center"><h2>Trusted by families across India</h2><p>Placeholder reviews — replace with real, consented customer testimonials.</p></div>
+ <div class="g3">
+  ${[['RK','R. Kumar','Chennai · Investing since 2019','My advisor stopped me from redeeming in a market fall. Two years later, that single call is the reason my portfolio is ahead.'],['PS','P. Sundaram','Coimbatore · Advisory client','I can see all my funds, including old ones from other platforms, in one place. Statements for tax filing take two clicks.'],['MN','M. Nair','Bengaluru · Goal planning','Separate portfolios for my daughter\'s education and our retirement keep us disciplined. The quarterly reviews are genuinely useful.']].map(t=>`<div class="card testi"><span class="stars">★★★★★</span><p>"${t[3]}"</p><div class="who"><span class="av">${t[0]}</span><div><b>${t[1]}</b><span>${t[2]}</span></div></div></div>`).join('')}
+ </div></div></section>
+
+<section class="s"><div class="wrap">
+ <div class="ahead" style="margin-bottom:28px"><div class="sh" style="margin:0"><h2>Insights and research</h2><p>Market updates and practical guides from our research desk.</p></div><a class="btn btn-light" href="#/research">View all articles</a></div>
+ <div class="g4">${BLOGS.map(b=>`<a class="card post" href="#/research"><div class="th" data-ic="report"></div><div class="pb"><span class="chip">${b[1]}</span><h4>${b[0]}</h4><small>${b[2]} · ${b[3]} read</small></div></a>`).join('')}</div>
+</div></section>
+
+<section class="s" style="padding-top:0"><div class="wrap"><div class="cta-band"><div><h2>Start your wealth journey today</h2><p style="margin-top:8px">Open a free account in under 10 minutes. No paperwork.</p></div><button class="btn btn-white" data-login>Open free account</button></div></div></section>`;
+
+const faqHTML=`<div class="faq">
+ <details><summary>What is the minimum amount to start investing?</summary><p>Most funds accept SIPs from ₹500 or ₹1,000 a month and one-time investments from ₹1,000.</p></details>
+ <details><summary>Is my money safe?</summary><p>Your money goes directly from your bank account to the mutual fund company. Units are held in your name with the fund house; we never hold your money.</p></details>
+ <details><summary>What documents do I need to open an account?</summary><p>PAN, Aadhaar linked to your mobile number, and a bank account. KYC is completed online through DigiLocker with a selfie and signature.</p></details>
+ <details><summary>Can I withdraw my money at any time?</summary><p>Most open-ended funds can be redeemed on any business day, with money credited in 1–3 working days. ELSS funds have a 3-year lock-in.</p></details>
+ <details><summary>How do you charge for your service?</summary><p>Placeholder: describe the client's pricing model here.</p></details>
+ <details><summary>Can I invest as an NRI?</summary><p>Yes, NRIs from most countries can invest using an NRE or NRO account. Some fund houses restrict investors from the US and Canada.</p></details></div>`;
+
+function pubPage(path){
+ const m=$('#pubMain');$('#pubMenu').classList.remove('open');
+ if(path==='/'||path===''){m.innerHTML=homeHTML();wireCalc();let i=0;clearInterval(window._rot);window._rot=setInterval(()=>{const r=$('#rot');if(!r)return clearInterval(window._rot);i=(i+1)%GOALS.length;r.style.opacity=0;setTimeout(()=>{r.textContent=GOALS[i].word;r.style.opacity=1},250)},3000)}
+ else if(path==='/calculators'){m.innerHTML=`<div class="page-hero"><div class="wrap"><h1>Financial calculators</h1><p>Plan SIPs, lump sums, withdrawals and retirement with simple, free tools.</p></div></div><section class="s"><div class="wrap">${calcBlock()}<div class="g4" style="margin-top:24px">${['Lump sum','Step-up SIP','SWP','Retirement','ELSS tax saving','PPF','Fixed deposit','Goal planner'].map(c=>`<a class="card prod" href="#/calculators" style="padding:18px"><span class="pi" data-ic="calc"></span><h4>${c} calculator</h4></a>`).join('')}</div></div></section>`;wireCalc()}
+ else if(path.startsWith('/goals/')){const g=GOALS.find(x=>x.id===path.split('/')[2])||GOALS[0];m.innerHTML=`<div class="page-hero"><div class="wrap"><h1>${g.name}</h1><p>${g.desc}</p></div></div><section class="s"><div class="wrap g2">
+  <div class="card pad"><h3 style="margin-bottom:18px">Plan your ${g.name.toLowerCase()} goal</h3>
+   <div class="rng"><div class="top"><span>Cost today</span><span class="val num" id="g_cL"></span></div><input type="range" id="g_c" min="1" max="500" value="${g.cost}"></div>
+   <div class="rng"><div class="top"><span>Years to goal</span><span class="val num" id="g_yL"></span></div><input type="range" id="g_y" min="1" max="35" value="${g.years}"></div>
+   <div class="rng"><div class="top"><span>Expected inflation</span><span class="val num" id="g_iL"></span></div><input type="range" id="g_i" min="3" max="10" step=".5" value="6"></div></div>
+  <div class="card pad" style="background:var(--hero);color:#C9D6E5;border:0"><small>Monthly SIP needed</small><div class="big-v num" id="g_s"></div><p>Future cost of goal: <b id="g_f" class="num" style="color:#fff"></b></p><p class="small" style="margin-top:14px;opacity:.75">Assumes 12% annual returns for illustration.</p><button class="btn btn-white" style="margin-top:20px" data-login>Start this goal</button></div></div></section>`;
+  const run=()=>{const c=+$('#g_c').value*1e5,y=+$('#g_y').value,inf=+$('#g_i').value,f=c*Math.pow(1+inf/100,y);$('#g_cL').textContent=inrS(c);$('#g_yL').textContent=y+' years';$('#g_iL').textContent=inf+'%';$('#g_f').textContent=inrS(f);$('#g_s').textContent=inr(sipFor(f,y))};['#g_c','#g_y','#g_i'].forEach(s=>$(s).oninput=run);run()}
+ else if(path==='/mutual-funds'){m.innerHTML=`<div class="page-hero"><div class="wrap"><h1>Invest in mutual funds online</h1><p>Expert-selected funds, flexible SIPs and a dedicated advisor to guide every decision.</p><div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap"><button class="btn btn-primary" data-login>Start a SIP</button><a class="btn btn-ghost-w" style="border:1.5px solid rgba(255,255,255,.35);color:#fff" href="#/calculators">Try the calculator</a></div></div></div>
+  <section class="s"><div class="wrap"><div class="sh"><h2>Why invest in mutual funds</h2></div><div class="g3">${[['grid','Diversification','One fund spreads your money across dozens of companies, so one bad stock doesn\'t sink you.'],['user','Professional management','Experienced fund managers research and track markets full time.'],['coin','Start small','Begin with ₹500 a month and increase as your income grows.'],['repeat','Liquidity','Redeem most funds on any business day and get money in 1–3 days.'],['report','Transparency','NAVs are published daily and portfolios disclosed monthly.'],['shield','Tax efficiency','ELSS funds qualify for Section 80C and gains are taxed only on redemption.']].map(f=>`<div class="card feat"><span class="fi" data-ic="${f[0]}"></span><div><h3>${f[1]}</h3><p>${f[2]}</p></div></div>`).join('')}</div></div></section>
+  <section class="s alt"><div class="wrap"><div class="sh"><h2>Types of mutual funds</h2></div><div class="card tbl"><table><thead><tr><th>Category</th><th>What it invests in</th><th>Risk</th><th>Suits</th></tr></thead><tbody>
+  ${[['Equity','Mostly company shares','Very high','Goals 7+ years away'],['Debt','Bonds and money-market instruments','Low to moderate','Goals 1–3 years away'],['Hybrid','A mix of equity and debt','Moderate to high','First-time investors'],['ELSS','Equity with a 3-year lock-in','Very high','Saving tax under 80C'],['Index','Tracks an index like Nifty 50','Very high','Low-cost long-term investing'],['Liquid','Very short-term debt','Low','Parking surplus cash']].map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table></div>
+  <div class="sh" style="margin-top:56px"><h2>Frequently asked questions</h2></div>${faqHTML}</div></section>`}
+ else if(path==='/research'){m.innerHTML=`<div class="page-hero"><div class="wrap"><h1>Insights and research</h1><p>Market outlooks, fund research and practical money guides.</p></div></div><section class="s"><div class="wrap g4">${[...BLOGS,...BLOGS].map(b=>`<a class="card post" href="#/research"><div class="th" data-ic="report"></div><div class="pb"><span class="chip">${b[1]}</span><h4>${b[0]}</h4><small>${b[2]} · ${b[3]} read</small></div></a>`).join('')}</div></section>`}
+ else if(path==='/about'){m.innerHTML=`<div class="page-hero"><div class="wrap"><h1>About Kosha Wealth</h1><p>Placeholder: the client's story, team, registrations and research process go here.</p></div></div><section class="s"><div class="wrap g3">${[['Our mission','Help every Indian family invest with a clear plan and honest advice.'],['Our research','A documented process for selecting and reviewing funds every quarter.'],['Our team','Certified advisors and analysts with years of market experience.']].map(a=>`<div class="card pad"><h3>${a[0]}</h3><p class="muted" style="margin-top:8px">${a[1]}</p></div>`).join('')}</div></section>`}
+ else if(path==='/contact'){m.innerHTML=`<div class="page-hero"><div class="wrap"><h1>Talk to an expert</h1><p>Leave your details and an advisor will call you within one working day.</p></div></div><section class="s"><div class="wrap g2"><form class="card pad" id="leadF" style="display:grid;gap:14px"><div class="fld"><label>Full name</label><input required></div><div class="fld"><label>Mobile number</label><input required inputmode="tel"></div><div class="fld"><label>What would you like help with?</label><select><option>Starting a SIP</option><option>Retirement planning</option><option>Reviewing my existing portfolio</option><option>Tax saving</option></select></div><button class="btn btn-primary">Request a call back</button></form><div>${faqHTML}</div></div></section>`;
+  $('#leadF').onsubmit=e=>{e.preventDefault();toast('Thank you. An advisor will call you soon (demo)');e.target.reset()}}
+ else {location.hash='#/';return}
+ paintIcons(m);window.scrollTo(0,0);
+}
+
+/* ===================== APP ===================== */
+const SNAV=[['dashboard','Dashboard','grid'],['mf/portfolio','Mutual funds','pie'],['bonds','Bonds','layers'],['sif','SIF','spark',1],['equity','Stocks','trend'],['fd','Fixed deposits','bank'],['nps','NPS','umbrella'],['insurance','Insurance','shield'],['sep'],['networth','Net worth','globe'],['calc','Calculators','calc'],['help','Help and support','help']];
+$('#snav').innerHTML=SNAV.map(s=>s[0]==='sep'?'<div class="sep"></div>':`<a href="#/app/${s[0]}" data-sn="${s[0].split('/')[0]}">${ic(s[2])}<span>${s[1]}</span>${s[3]?'<span class="chip new" style="margin-left:auto">New</span>':''}</a>`).join('');
+const MFNAV=[['portfolio','Portfolio'],['invest','Invest'],['sip','Systematic plans'],['transactions','Transactions'],['watchlist','Watchlist']];
+$('#sideBtn').onclick=()=>$('#side').classList.toggle('open');
+function dd(btn,box){$(btn).onclick=e=>{e.stopPropagation();const s=$(box).classList.toggle('show');$$('.dd').forEach(d=>{if(d!==$(box))d.classList.remove('show')})}}
+dd('#meBtn','#meDd');dd('#bellBtn','#bellDd');
+document.addEventListener('click',e=>{if(!e.target.closest('.dd'))$$('.dd').forEach(d=>d.classList.remove('show'))});
+$('#logout').onclick=()=>{toast('Logged out')};
+const amcBadge=f=>`<span class="amc" style="background:${f.col}">${f.amc.slice(0,2).toUpperCase()}</span>`;
+const riskM=r=>{const n={Low:1,Moderate:2,High:3,'Very high':4}[r]||2;return `<span class="riskm">${[1,2,3,4].map(k=>`<i style="background:${k<=n?(n>=4?'var(--down)':n===3?'var(--accent)':'var(--up)'):''}"></i>`).join('')}</span>`};
+
+function fundCard(f){return `<button class="fcard" data-fund="${f.id}"><div style="display:flex;justify-content:space-between;align-items:center">${amcBadge(f)}<span class="inv">${f.inv}K investors</span></div><b>${f.name}</b><span class="stars">${stars(f.rating)}</span><div><div class="ret pos num">+${(f.r3*3.2).toFixed(2)}%</div><small>3Y absolute returns</small></div></button>`}
+
+function viewDashboard(){
+ return `<div class="welcome"><div><h2>Good evening, Ravi. You're ready to invest!</h2><p>Your KYC is verified. Pick a fund, set up a SIP and your advisor will guide you from there.</p></div><a class="btn btn-white" href="#/app/mf/invest">Start investing</a></div>
+ <div class="notice"><div><b>Nominee details incomplete.</b> <span class="muted">Add a nominee so your family can claim your investments easily.</span></div><a class="btn btn-primary btn-sm" href="#/app/profile/nominee">Add nominee</a></div>
+ <div><div class="secthead"><h3>Our products</h3></div><div class="tiles">${[['mf/invest','Mutual funds','pie'],['equity','Stocks','trend'],['sif','SIF','spark',1],['bonds','Bonds','layers'],['fd','Fixed deposits','bank'],['nps','NPS','umbrella']].map(t=>`<a class="card tile" href="#/app/${t[0]}"><span class="ti">${ic(t[2])}</span>${t[1]}${t[3]?'<span class="chip new">New</span>':''}</a>`).join('')}</div></div>
+ <div class="card pad"><div class="secthead"><h3>Our collections</h3><a href="#/app/mf/invest">View all funds</a></div>
+  <div class="pills" id="colPills" style="margin-bottom:16px">${['Trending now','High returns','Investor favourites','Tax saving','Gold funds'].map((c,i)=>`<button class="pill" data-col="${i}" aria-pressed="${i===0}">${c}</button>`).join('')}</div>
+  <div class="hscroll" id="colCards"></div></div>
+ <div class="split2">
+  <div class="card pad worth"><div><h3>Know your true net worth</h3><p class="muted" style="margin:6px 0 12px">See your bank balances, mutual funds, stocks and NPS in one place, securely through the RBI Account Aggregator network.</p><div class="srcs"><span>Banks</span><span>Mutual funds</span><span>Stocks</span><span>NPS</span><span>ETFs</span></div></div><a class="btn btn-outline" href="#/app/networth">Find now</a></div>
+  <div class="card pad"><div class="secthead"><h3>Tools and reports</h3></div><div style="display:grid;gap:10px"><a class="btn btn-light" style="justify-content:flex-start" href="#/app/calc">${ic('calc')}SIP calculator</a><a class="btn btn-light" style="justify-content:flex-start" href="#/app/reports">${ic('report')}Mutual fund reports</a></div></div>
+ </div>
+ <div class="split2">
+  <div class="card pad"><div class="secthead"><h3>Latest research</h3><a href="#/app/help">View all</a></div><div class="blog-l">${BLOGS.map(b=>`<a href="#/app/dashboard"><span>${b[0]}</span><small>${b[2]}</small></a>`).join('')}</div></div>
+  <div class="card pad"><h3 style="margin-bottom:12px">Why investors trust us</h3><div class="trustrow" style="grid-template-columns:1fr">${[['shield','Regulated distributor','AMFI ARN-XXXXX'],['lock','Bank-grade security','256-bit encryption, 2-step login'],['users','Dedicated advisor','For every family account']].map(t=>`<div class="card" style="border-radius:12px">${ic(t[0])}<div><b>${t[1]}</b>${t[2]}</div></div>`).join('')}</div></div>
+ </div>`}
+function wireDashboard(){const sets=[FUNDS.filter(f=>f.rating>=3&&f.cat!=='Liquid').sort((a,b)=>b.inv-a.inv),FUNDS.slice().sort((a,b)=>b.r3-a.r3),FUNDS.filter(f=>f.rating>=4),FUNDS.filter(f=>f.cat==='ELSS'),FUNDS.filter(f=>f.cat==='Gold')];
+ const show=i=>{$('#colCards').innerHTML=sets[i].slice(0,6).map(fundCard).join('')};
+ $$('#colPills .pill').forEach(p=>p.onclick=()=>{$$('#colPills .pill').forEach(x=>x.setAttribute('aria-pressed',x===p));show(+p.dataset.col)});show(0)}
+
+/* ----- MF: portfolio ----- */
+const HOLD=[[FUNDS[0],180000,231400,'Wealth creation'],[FUNDS[8],120000,146900,"Child's education"],[FUNDS[22],90000,96300,'Emergency fund'],[FUNDS[19],80000,99800,"Child's education"],[FUNDS[27],60000,64900,'Tax saving']];
+let pfState={tab:'Summary',src:'kosha',empty:false};
+function viewPortfolio(){const inv=HOLD.reduce((s,h)=>s+h[1],0),cur=HOLD.reduce((s,h)=>s+h[2],0),e=pfState.empty;
+ return `<div class="ahead"><div><h1>Portfolio</h1><p class="muted">Ravi Kumar · All investments</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><span class="seg" id="srcSeg"><button data-src="kosha" aria-pressed="${pfState.src==='kosha'}">Kosha portfolio</button><button data-src="ext" aria-pressed="${pfState.src==='ext'}">External portfolio</button></span><span class="seg" id="emptySeg" title="Preview for a new user"><button data-e="0" aria-pressed="${!e}">With investments</button><button data-e="1" aria-pressed="${e}">New user</button></span></div></div>
+ <div class="ptabs" id="pTabs">${['Summary','Performance','Portfolio deep dive','Capital gains'].map(t=>`<button aria-pressed="${pfState.tab===t}">${t}</button>`).join('')}</div>
+ ${pfState.src==='ext'?`<div class="card empty"><div class="ei">${ic('globe')}</div><h3>Bring in funds you hold elsewhere</h3><p style="max-width:52ch;margin:8px auto 18px">Import your consolidated account statement (CAS) to track every mutual fund you own, across all platforms, in one place.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn btn-primary" data-toast="CAS import will fetch your statement via email OTP (demo)">Import via CAS</button><button class="btn btn-light" data-toast="Upload a CAS PDF (demo)">Upload statement PDF</button></div></div>`:
+ `<div class="metrics num"><div><small>Invested value</small><b>${e?'₹0':inr(inv)}</b></div><div><small>Current value</small><b>${e?'₹0':inr(cur)}</b><div class="sub pos">${e?'':'1-day: +₹2,140 (0.33%)'}</div></div><div><small>Total gains</small><b class="${e?'':'pos'}">${e?'₹0':'+'+inr(cur-inv)}</b><div class="sub ${e?'muted':'pos'}">${e?'(0.00%)':'+'+((cur-inv)/inv*100).toFixed(2)+'%'}</div></div><div><small>Portfolio XIRR</small><b>${e?'N/A':'14.82%'}</b><div class="sub muted">Monthly SIP: ${e?'₹0 (0 schemes)':'₹25,000 (4 schemes)'}</div></div></div>
+ <div id="pBody">${pfBody(e,inv,cur)}</div>`}`}
+function pfBody(e,inv,cur){const t=pfState.tab;
+ if(t==='Summary'){const goals=[['Ravi Kumar portfolio',HOLD.filter(h=>h[3]==='Wealth creation')],["Child's education",HOLD.filter(h=>h[3]==="Child's education")],['Emergency fund',HOLD.filter(h=>h[3]==='Emergency fund')],['Tax saving',HOLD.filter(h=>h[3]==='Tax saving')],['Retirement',[]]];
+  return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line-2);gap:10px;flex-wrap:wrap"><h3>Goal portfolios</h3><div style="display:flex;gap:10px"><a class="btn btn-primary btn-sm" href="#/app/mf/invest">Start a SIP</a><button class="btn btn-light btn-sm" data-toast="New goal portfolio created (demo)">Create new portfolio</button></div></div>
+  ${goals.map(([n,h])=>{const v=e?0:h.reduce((s,x)=>s+x[2],0),i=e?0:h.reduce((s,x)=>s+x[1],0);return `<div class="gport num"><div><b style="color:var(--navy)">${n}</b><div class="small muted">${e||!h.length?'There are no schemes in this portfolio yet.':h.length+' scheme'+(h.length>1?'s':'')+' · Invested '+inr(i)}</div>${!e&&h.length?`<div class="bar"><span style="width:${Math.min(95,30+h.length*22)}%"></span></div>`:''}</div><div style="text-align:right"><b>${inr(v)}</b><div class="small">${v?pct((v-i)/i*100):'<span class="muted">—</span>'}</div></div><a class="btn btn-light btn-sm act" href="#/app/mf/invest">Invest</a></div>`}).join('')}</div>
+  ${e?'':`<div class="card"><div style="padding:16px 20px;border-bottom:1px solid var(--line-2)"><h3>Holdings</h3></div><div class="tbl"><table style="min-width:640px"><thead><tr><th>Scheme</th><th class="r">Invested</th><th class="r">Current value</th><th class="r">Returns</th><th class="r">XIRR</th><th></th></tr></thead><tbody class="num">${HOLD.map(([f,i,c])=>`<tr><td><button class="linkish" data-fund="${f.id}">${f.name}</button><div class="small muted">${f.cat} · ${f.sub}</div></td><td class="r">${inr(i)}</td><td class="r">${inr(c)}</td><td class="r">${pct((c-i)/i*100)}</td><td class="r">${(f.r3-1).toFixed(2)}%</td><td class="r"><span style="display:inline-flex;gap:6px"><button class="btn btn-light btn-sm" data-fund="${f.id}">Invest more</button><button class="btn btn-light btn-sm" data-toast="Redeem flow opens here (demo)">Redeem</button></span></td></tr>`).join('')}</tbody></table></div></div>`}`}
+ if(e)return `<div class="card empty"><div class="ei">${ic('trend')}</div><h3>This space could look busier with some investments</h3><p style="margin:8px 0 18px">Start a SIP to see your performance, allocation and gains here.</p><a class="btn btn-primary" href="#/app/mf/invest">Start a SIP</a></div>`;
+ if(t==='Performance'){let v=inv*.62;const pts=[];for(let m=0;m<36;m++){v=v*1.011+(m%3===0?-v*.012:0)+inv*.011;pts.push(v)}const mx=Math.max(...pts),mn=Math.min(...pts);const d=pts.map((p,i)=>`${i?'L':'M'}${(i/35*640).toFixed(1)} ${(200-(p-mn)/(mx-mn)*170).toFixed(1)}`).join(' ');
+  return `<div class="card pad"><div class="secthead"><h3>Portfolio value vs amount invested</h3><div class="rbtn"><button aria-pressed="false">1Y</button><button aria-pressed="true">3Y</button><button aria-pressed="false">All</button></div></div><div class="tbl"><svg viewBox="0 0 640 210" width="100%" style="min-width:460px"><path d="${d} L640 210 L0 210Z" fill="var(--primary)" opacity=".08"/><path d="${d}" fill="none" stroke="var(--primary)" stroke-width="2.5"/><path d="M0 170 L640 70" stroke="var(--faint)" stroke-dasharray="5 5" fill="none"/></svg></div><div class="lg" style="margin-top:10px;color:var(--muted)"><span><i style="background:var(--primary)"></i>Current value</span><span><i style="background:var(--faint)"></i>Amount invested</span></div></div>
+  <div class="card tbl"><table><thead><tr><th>Period</th><th class="r">Your portfolio</th><th class="r">Nifty 50 TRI</th></tr></thead><tbody class="num">${[['1 year',8.4,6.1],['3 years',14.8,12.2],['Since start',15.6,13.1]].map(r=>`<tr><td>${r[0]}</td><td class="r">${pct(r[1])}</td><td class="r">${pct(r[2])}</td></tr>`).join('')}</tbody></table></div>`}
+ if(t==='Portfolio deep dive'){const p=[['Equity',72,'#0B5CD5'],['Debt',18,'#0F8A4C'],['Gold',6,'#F5A524'],['Cash',4,'#94A3B8']];let a=0;const C=2*Math.PI*60;
+  return `<div class="split2"><div class="card pad"><h3 style="margin-bottom:16px">Asset allocation</h3><div style="display:flex;gap:28px;align-items:center;flex-wrap:wrap"><svg viewBox="0 0 160 160" width="170" height="170" role="img" aria-label="Asset allocation chart">${p.map(x=>{const s=`<circle cx="80" cy="80" r="60" fill="none" stroke="${x[2]}" stroke-width="24" stroke-dasharray="${x[1]/100*C} ${C}" stroke-dashoffset="${-a/100*C}" transform="rotate(-90 80 80)"/>`;a+=x[1];return s}).join('')}</svg><div style="display:grid;gap:10px">${p.map(x=>`<div><i style="display:inline-block;width:11px;height:11px;border-radius:3px;background:${x[2]};margin-right:8px"></i>${x[0]} <b class="num">${x[1]}%</b></div>`).join('')}</div></div><p class="small muted" style="margin-top:16px">Recommended for your risk profile: 65% equity, 25% debt, 10% gold. Your advisor will suggest rebalancing.</p></div>
+  <div class="card pad"><h3 style="margin-bottom:16px">Equity by market cap</h3>${[['Large cap',54],['Mid cap',28],['Small cap',18]].map(r=>`<div class="alloc-row"><span>${r[0]}</span><div class="bar"><span style="width:${r[1]}%;background:var(--primary)"></span></div><b class="num" style="text-align:right">${r[1]}%</b></div>`).join('')}<h3 style="margin:22px 0 14px">Top sectors</h3>${[['Financials',27],['IT',14],['Consumer',11],['Healthcare',8]].map(r=>`<div class="alloc-row"><span>${r[0]}</span><div class="bar"><span style="width:${r[1]*2.5}%;background:#7C3AED"></span></div><b class="num" style="text-align:right">${r[1]}%</b></div>`).join('')}</div></div>`}
+ return `<div class="card pad"><div class="secthead"><span class="seg"><button aria-pressed="true">Current FY 2026–27</button><button aria-pressed="false">Previous FY 2025–26</button></span><button class="btn btn-light btn-sm" data-toast="Capital gains statement downloaded (demo)">Download statement</button></div>
+  <div class="tbl"><table><thead><tr><th></th><th class="r">Short-term</th><th class="r">Long-term</th><th class="r">Total</th></tr></thead><tbody class="num"><tr><td>Realised gains</td><td class="r">₹0</td><td class="r">₹0</td><td class="r">₹0</td></tr><tr><td>Unrealised gains</td><td class="r pos">+₹18,240</td><td class="r pos">+₹74,860</td><td class="r pos">+₹93,100</td></tr></tbody></table></div>
+  <div class="notice" style="margin-top:16px"><div><b>Tax-free long-term gains left this year: ₹1,25,000.</b> <span class="muted">Ask your advisor about booking gains to use this limit.</span></div></div>
+  <p class="footnote" style="margin-top:14px">Capital gains shown are indicative and not tax advice. Please consult a tax professional.</p></div>`}
+function wirePortfolio(){$$('#pTabs button').forEach(b=>b.onclick=()=>{pfState.tab=b.textContent;render()});$$('#srcSeg button').forEach(b=>b.onclick=()=>{pfState.src=b.dataset.src;render()});$$('#emptySeg button').forEach(b=>b.onclick=()=>{pfState.empty=b.dataset.e==='1';render()})}
+
+/* ----- MF: invest ----- */
+function viewInvest(){return `<div class="ahead"><h1>Invest in mutual funds</h1></div>
+ <div class="inv-tiles">${[['SIP','repeat'],['Lump sum','coin'],['Step-up SIP','trend',1],['Goal SIP','sun'],['NFOs','spark'],['Invest more','pie'],['SIF','layers',1]].map(t=>`<a class="card tile" href="#/app/${t[0]==='SIF'?'sif':'mf/sip'}"><span class="ti">${ic(t[1])}</span>${t[0]}${t[2]?'<span class="chip new">New</span>':''}</a>`).join('')}</div>
+ <div class="card pad"><div class="secthead"><div><h3>Kosha select funds</h3><p class="small muted">Shortlisted by our research team and reviewed every quarter</p></div><a href="#/app/mf/sip">View all</a></div>
+  <div class="tbl"><table style="min-width:640px"><thead><tr><th>Fund</th><th class="r">1Y</th><th class="r">3Y</th><th class="r">5Y</th><th>Rating</th><th></th></tr></thead><tbody class="num">${SELECT.map(i=>FUNDS[i-1]).map(f=>`<tr><td><div style="display:flex;gap:12px;align-items:center">${amcBadge(f)}<div><button class="linkish" data-fund="${f.id}">${f.name}</button><div class="small muted">${f.cat} · ${f.sub}</div></div></div></td><td class="r">${pct(f.r1)}</td><td class="r">${pct(f.r3)}</td><td class="r">${pct(f.r5)}</td><td class="stars">${stars(f.rating)}</td><td class="r"><button class="add ${cart.has(f.id)?'on':''}" data-add="${f.id}">${cart.has(f.id)?'Added':'Add to basket'}</button></td></tr>`).join('')}</tbody></table></div></div>
+ <div><div class="secthead"><h3>Systematic plans</h3></div><div class="sp-grid">${[['STP','Move a lump sum into equity in stages'],['SWP','Get a fixed monthly payout'],['Smart savings','Park idle cash in liquid funds'],['Switch','Move between funds in one step']].map(s=>`<button class="sp" data-toast="${s[0]} setup opens here (demo)"><b>${s[0]}</b><span>${s[1]}</span></button>`).join('')}</div></div>
+ <div><div class="secthead"><h3>Top categories</h3></div><div class="cat-grid">${['Equity','Debt','ELSS','Hybrid','Index','Liquid'].map(c=>`<a class="card tile" href="#/app/mf/sip?cat=${c}"><span class="ti">${ic({Equity:'trend',Debt:'layers',ELSS:'shield',Hybrid:'pie',Index:'grid',Liquid:'coin'}[c])}</span>${c}</a>`).join('')}</div></div>
+ ${calcBlock()}`}
+
+/* ----- MF: explorer (systematic plans) ----- */
+let ex={cat:'All',risk:new Set(),amc:new Set(),q:'',sort:'r3'};
+function viewExplorer(){return `<div class="ahead"><div><h1>Explore funds</h1><p class="muted">Sample data for demonstration. The live site updates NAVs and returns daily.</p></div></div>
+ <div class="pills" id="exCats">${['All','Select funds',...CATS].map(c=>`<button class="pill" data-c="${c}" aria-pressed="${ex.cat===c}">${c}</button>`).join('')}</div>
+ <div class="layout-f"><aside class="card fpanel"><div><h4>Risk level</h4>${['Low','Moderate','High','Very high'].map(r=>`<label><input type="checkbox" data-risk="${r}" ${ex.risk.has(r)?'checked':''}>${r}</label>`).join('')}</div><div><h4>Fund house</h4>${AMCS.map(a=>`<label><input type="checkbox" data-amc="${a[0]}" ${ex.amc.has(a[0])?'checked':''}>${a[0]} Mutual Fund</label>`).join('')}</div><button class="btn btn-light btn-sm" id="exClear">Clear all filters</button></aside>
+ <div><div class="tool"><input id="exQ" type="search" placeholder="Search by fund name" value="${ex.q}" aria-label="Search funds"><select id="exSort" aria-label="Sort"><option value="r3">Sort: 3Y returns</option><option value="r1">Sort: 1Y returns</option><option value="r5">Sort: 5Y returns</option><option value="rating">Sort: Rating</option><option value="aum">Sort: Fund size</option></select></div><div class="card flist" id="exList"></div></div></div>`}
+function exList(){let l=FUNDS.filter(f=>(ex.cat==='All'||(ex.cat==='Select funds'?SELECT.includes(f.id):f.cat===ex.cat))&&(!ex.risk.size||ex.risk.has(f.risk))&&(!ex.amc.size||ex.amc.has(f.amc))&&(!ex.q||f.name.toLowerCase().includes(ex.q.toLowerCase())));
+ l.sort((a,b)=>b[ex.sort]-a[ex.sort]);
+ $('#exList').innerHTML=!l.length?`<div class="empty">No funds match these filters. Clear a filter to see more.</div>`:`<div class="row head"><span></span><span>Fund</span><span class="r c1">1Y</span><span class="r">3Y</span><span class="r c5">5Y</span><span class="r cn">NAV</span><span class="cr">Rating</span><span></span></div>`+l.map(f=>`<div class="row num">${amcBadge(f)}<div class="nm"><button class="linkish" data-fund="${f.id}">${f.name}</button><small>${f.cat} · ${f.sub} · ${f.risk} risk</small></div><span class="r c1">${pct(f.r1,1)}</span><span class="r">${pct(f.r3,1)}</span><span class="r c5">${pct(f.r5,1)}</span><span class="r cn">₹${f.nav.toFixed(2)}</span><span class="stars cr">${stars(f.rating)}</span><button class="add ${cart.has(f.id)?'on':''}" data-add="${f.id}">${cart.has(f.id)?'Added':'Add'}</button></div>`).join('')}
+function wireExplorer(){$('#exSort').value=ex.sort;$$('#exCats .pill').forEach(p=>p.onclick=()=>{ex.cat=p.dataset.c;$$('#exCats .pill').forEach(x=>x.setAttribute('aria-pressed',x===p));exList()});
+ $('.fpanel').onchange=e=>{const t=e.target;if(t.dataset.risk)t.checked?ex.risk.add(t.dataset.risk):ex.risk.delete(t.dataset.risk);if(t.dataset.amc)t.checked?ex.amc.add(t.dataset.amc):ex.amc.delete(t.dataset.amc);exList()};
+ $('#exClear').onclick=()=>{ex.risk.clear();ex.amc.clear();$$('.fpanel input').forEach(i=>i.checked=false);exList()};
+ $('#exQ').oninput=e=>{ex.q=e.target.value;exList()};$('#exSort').onchange=e=>{ex.sort=e.target.value;exList()};exList()}
+
+/* ----- MF: transactions / watchlist ----- */
+function viewTx(){const tx=[['02 Oct 2026','Arya Flexi Cap Fund','SIP purchase',5000,'Units allotted'],['02 Oct 2026','Kaveri Mid Cap Fund','SIP purchase',10000,'Units allotted'],['18 Sep 2026','Bharat Liquid Fund','Lump sum',50000,'Units allotted'],['05 Sep 2026','Meridian Tax Saver Fund','SIP purchase',5000,'Units allotted'],['28 Aug 2026','Sahyadri Short Duration Fund','Redemption',20000,'Money credited']];
+ return `<div class="ahead"><h1>Transactions</h1><div style="display:flex;gap:10px"><select class="btn btn-light btn-sm" aria-label="Period"><option>Last 3 months</option><option>Last 12 months</option><option>All time</option></select><button class="btn btn-light btn-sm" data-toast="Transaction statement downloaded (demo)">Download</button></div></div>
+ <div class="pills">${['All','Purchases','Redemptions','SIP','Switch','Pending'].map((p,i)=>`<button class="pill" aria-pressed="${i===0}">${p}</button>`).join('')}</div>
+ <div class="card tbl"><table style="min-width:640px"><thead><tr><th>Date</th><th>Scheme</th><th>Type</th><th class="r">Amount</th><th>Status</th></tr></thead><tbody class="num">${tx.map(t=>`<tr><td>${t[0]}</td><td><b style="color:var(--navy)">${t[1]}</b></td><td>${t[2]}</td><td class="r">${inr(t[3])}</td><td><span class="chip" style="background:var(--up-soft);color:var(--up)">${t[4]}</span></td></tr>`).join('')}</tbody></table></div>`}
+function viewWatch(){return `<div class="ahead"><h1>Watchlist and alerts</h1></div><div class="split2"><div class="card pad"><h3 style="margin-bottom:12px">My watchlist</h3>${FUNDS.slice(3,7).map(f=>`<div class="gport" style="padding:12px 0"><div><button class="linkish" data-fund="${f.id}">${f.name}</button><div class="small muted">NAV ₹${f.nav.toFixed(2)}</div></div><div class="num">${pct(f.r1,1)}</div><button class="add" data-add="${f.id}">Add</button></div>`).join('')}</div><div class="card pad"><h3>Set up a trigger</h3><p class="muted small" style="margin:6px 0 16px">Get alerted, or auto-invest, when a fund or index reaches your level.</p><div style="display:grid;gap:12px"><div class="fld"><label>When</label><select><option>Nifty 50 falls by</option><option>Fund NAV reaches</option><option>My returns reach</option></select></div><div class="fld"><label>Value</label><input value="5%"></div><button class="btn btn-primary" data-toast="Trigger created (demo)">Create trigger</button></div></div></div>`}
+
+/* ----- fund detail ----- */
+function navSeries(f,days){seed=f.id*977;const vol={Equity:.011,Debt:.0012,Hybrid:.006,ELSS:.011,Index:.009,Gold:.008,Liquid:.0002}[f.cat];let v=1;const pts=[];const dr=Math.pow(1+f.r5/100,1/365);for(let d=0;d<=days;d++){v*=dr*(1+(rnd()-.5)*vol*2);pts.push(v)}const k=f.nav/pts[pts.length-1];return pts.map(p=>p*k)}
+function chart(pts){const W=700,H=230,mn=Math.min(...pts),mx=Math.max(...pts),st=Math.max(1,Math.floor(pts.length/260)),s=pts.filter((_,i)=>i%st===0||i===pts.length-1);const d=s.map((p,i)=>`${i?'L':'M'}${(i/(s.length-1)*W).toFixed(1)} ${(H-12-(p-mn)/(mx-mn||1)*(H-34)).toFixed(1)}`).join(' ');const c=pts[pts.length-1]>=pts[0]?'var(--up)':'var(--down)';
+ return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="min-width:440px" role="img" aria-label="NAV chart"><path d="${d} L${W} ${H} L0 ${H}Z" fill="${c}" opacity=".08"/><path d="${d}" fill="none" stroke="${c}" stroke-width="2.2"/></svg>`}
+function viewFund(id){const f=FUNDS.find(x=>x.id===id)||FUNDS[0];const peers=FUNDS.filter(x=>x.cat===f.cat).sort((a,b)=>b.r5-a.r5);
+ const sectors=f.cat==='Debt'||f.cat==='Liquid'?[['Government securities',38],['AAA corporate bonds',34],['Bank CDs',16],['Cash and others',12]]:[['Banks',21],['IT services',12],['Automobiles',8],['Pharma',7],['FMCG',6],['Energy',6],['Others',40]];
+ return `<a href="#/app/mf/sip" class="small" style="color:var(--muted);text-decoration:none;font-weight:600">‹ Back to funds</a>
+ <div class="fhead"><div style="display:flex;gap:14px;align-items:center">${amcBadge(f).replace('34px','48px')}<div><h1 style="font-size:1.6rem">${f.name}</h1><p class="muted small">${f.cat} · ${f.sub} · <span class="stars">${stars(f.rating)}</span></p></div></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-light" data-toast="Added to watchlist (demo)">Watchlist</button><button class="btn btn-outline" data-add="${f.id}">${cart.has(f.id)?'In basket':'Add to basket'}</button><button class="btn btn-primary" data-investnow="${f.id}">Invest now</button></div></div>
+ <div class="fstats num"><div><small>Riskometer</small><b>${f.risk}</b>${riskM(f.risk)}</div><div><small>NAV (09 Oct)</small><b>₹${f.nav.toFixed(3)}</b></div><div><small>1-day change</small><b class="pos">+0.38%</b></div><div><small>Fund size</small><b>₹${f.aum.toLocaleString('en-IN')} Cr</b></div><div><small>Min. SIP</small><b>₹${f.minsip}</b></div><div><small>Min. lump sum</small><b>₹1,000</b></div></div>
+ <div class="split2"><div class="card pad"><div class="secthead"><h3>NAV history</h3><div class="rbtn" id="rng">${['1Y','3Y','5Y'].map((r,i)=>`<button data-r="${r}" aria-pressed="${i===0}">${r}</button>`).join('')}</div></div><div class="tbl" id="chartBox">${chart(navSeries(f,365))}</div></div>
+  <div class="card pad"><h3 style="margin-bottom:14px">Returns calculator</h3><span class="seg" id="rm"><button data-m="sip" aria-pressed="true">Monthly SIP</button><button data-m="lump" aria-pressed="false">One time</button></span>
+   <div class="rng" style="margin-top:18px"><div class="top"><span>Amount</span><span class="val num" id="raL"></span></div><input type="range" id="ra" min="500" max="100000" step="500" value="10000"></div>
+   <div class="rng"><div class="top"><span>Period</span><span class="val num" id="ryL"></span></div><input type="range" id="ry" min="1" max="5" value="3"></div><div class="kv num" id="rOut"></div></div></div>
+ <div class="split2"><div class="card pad"><h3 style="margin-bottom:14px">Portfolio holdings</h3><p class="small muted" style="margin-bottom:14px">Asset allocation: ${f.cat==='Debt'||f.cat==='Liquid'?'Debt 92% · Cash 8%':'Equity 94.2% · Debt 1.3% · Cash 4.5%'} (as on 30 Sep 2026)</p>${sectors.map(s=>`<div class="alloc-row"><span>${s[0]}</span><div class="sbar"><span style="width:${s[1]*2.2}%"></span></div><b class="num" style="text-align:right">${s[1]}%</b></div>`).join('')}</div>
+  <div class="card pad"><h3 style="margin-bottom:16px">Fund details</h3><div class="kv"><div><small>Exit load</small><b>1% if redeemed within 365 days</b></div><div><small>Expense ratio</small><b>${f.exp}%</b></div><div><small>Benchmark</small><b>${f.cat==='Debt'?'CRISIL Composite Bond Index':'Nifty 500 TRI'}</b></div><div><small>Lock-in</small><b>${f.cat==='ELSS'?'3 years':'None'}</b></div><div><small>Fund manager</small><b>${f.mgr}</b></div><div><small>Fund age</small><b>${f.age} years</b></div><div><small>Portfolio turnover</small><b>${(20+f.id%40)}%</b></div><div><small>Plan</small><b>Regular · Growth</b></div></div><div style="margin-top:18px;display:flex;gap:16px"><a href="#" onclick="return false" style="color:var(--primary);font-weight:700;font-size:.9rem">Scheme document</a><a href="#" onclick="return false" style="color:var(--primary);font-weight:700;font-size:.9rem">Factsheet</a></div></div></div>
+ <div class="card"><div style="padding:16px 20px;border-bottom:1px solid var(--line-2)"><h3>Quarterly returns</h3></div><div class="tbl"><table style="min-width:480px"><thead><tr><th>Year</th><th class="r">Q1</th><th class="r">Q2</th><th class="r">Q3</th><th class="r">Q4</th></tr></thead><tbody class="num">${[2026,2025,2024,2023].map((y,yi)=>{seed=f.id*31+yi;return `<tr><td>${y}</td>${[0,1,2,3].map(q=>y===2026&&q>1?'<td class="r muted">—</td>':`<td class="r">${pct((rnd()-.35)*(f.cat==='Liquid'?3:f.cat==='Debt'?5:22),1)}</td>`).join('')}</tr>`}).join('')}</tbody></table></div></div>
+ <div class="card"><div style="padding:16px 20px;border-bottom:1px solid var(--line-2)"><h3>Peer comparison · ${f.cat}</h3></div><div class="tbl"><table style="min-width:520px"><thead><tr><th>Fund</th><th>Rating</th><th class="r">1Y</th><th class="r">3Y</th><th class="r">5Y</th></tr></thead><tbody class="num">${peers.map(p=>`<tr style="${p.id===f.id?'background:var(--primary-soft)':''}"><td><button class="linkish" data-fund="${p.id}">${p.name}</button></td><td class="stars">${stars(p.rating)}</td><td class="r">${pct(p.r1,1)}</td><td class="r">${pct(p.r3,1)}</td><td class="r">${pct(p.r5,1)}</td></tr>`).join('')}</tbody></table></div></div>
+ <p class="footnote">Data is illustrative. Please read the scheme information document before investing.</p>`}
+function wireFund(id){const f=FUNDS.find(x=>x.id===id)||FUNDS[0];let m='sip';
+ const run=()=>{const a=+$('#ra').value,y=+$('#ry').value,r=f['r'+(y>=5?5:y>=3?3:1)];$('#raL').textContent=inr(a);$('#ryL').textContent=y+(y>1?' years':' year');let i,v;if(m==='sip'){i=a*y*12;v=sipFV(a,y,r)}else{i=a;v=a*Math.pow(1+r/100,y)}
+  $('#rOut').innerHTML=`<div><small>Total invested</small><b>${inr(i)}</b></div><div><small>Value today</small><b>${inr(v)}</b></div><div><small>Gains</small><b class="${v>=i?'pos':'neg'}">${inr(v-i)}</b></div><div><small>Annualised</small><b>${r.toFixed(2)}%</b></div>`};
+ $('#ra').oninput=run;$('#ry').oninput=run;$$('#rm button').forEach(b=>b.onclick=()=>{m=b.dataset.m;$$('#rm button').forEach(x=>x.setAttribute('aria-pressed',x===b));run()});
+ $$('#rng button').forEach(b=>b.onclick=()=>{$$('#rng button').forEach(x=>x.setAttribute('aria-pressed',x===b));$('#chartBox').innerHTML=chart(navSeries(f,{'1Y':365,'3Y':1095,'5Y':1825}[b.dataset.r]))});run()}
+
+/* ----- other products ----- */
+function viewBonds(){return `<div class="ahead"><div><h1>Bonds</h1><p class="muted">Fixed-income bonds listed on NSE and BSE, with interest paid to your bank account.</p></div><span class="seg"><button aria-pressed="true">Explore bonds</button><button aria-pressed="false" data-toast="Bond baskets (demo)">Bond baskets</button><button aria-pressed="false" data-toast="No bond holdings yet (demo)">Holdings</button></span></div>
+ <div class="pills">${['All','Yield above 10%','Under 1 year','1–3 years','AAA rated','Monthly interest','Secured'].map((p,i)=>`<button class="pill" aria-pressed="${i===0}">${p}</button>`).join('')}</div>
+ <div class="g3">${BONDS.map(b=>`<div class="card bond"><div class="top"><div><b style="color:var(--navy)">${b[0]}</b><div style="margin-top:6px;display:flex;gap:6px"><span class="chip">${b[1]} rated</span><span class="chip" style="background:var(--surface-2);color:var(--muted)">${b[2]}</span></div></div><div style="text-align:right"><div class="ytm num">${b[3].toFixed(2)}%</div><small class="muted">Yield (YTM)</small></div></div><div class="meta num"><div>Tenure<b>${b[4]}</b></div><div>Min. invest<b>${inr(b[5])}</b></div><div>Interest<b>${b[6]}</b></div></div><button class="btn btn-outline btn-sm" data-toast="Bond order flow opens here (demo)">Invest</button></div>`).join('')}</div>
+ <p class="footnote">Bonds are offered through a SEBI-registered Online Bond Platform Provider partner. Bond investments carry credit, interest rate and liquidity risk. Issuer names are fictional.</p>`}
+function viewSIF(){return `<div class="welcome"><div><span class="chip new">New</span><h2 style="margin-top:8px">Specialised Investment Funds</h2><p>A SEBI-introduced category between mutual funds and PMS, with long-short strategies managed by experts. Minimum investment ₹10 lakh.</p></div></div>
+ <div class="card tbl"><table style="min-width:640px"><thead><tr><th>Scheme</th><th>Strategy</th><th>Risk</th><th class="r">Min. investment</th><th class="r">NAV</th><th></th></tr></thead><tbody class="num">${[['Arya Equity Long-Short SIF','Equity long-short','Very high',10.42],['Kaveri Hybrid Long-Short SIF','Hybrid long-short','Moderate',10.18],['Meridian Ex-Top 100 Long-Short SIF','Equity ex-top 100','Very high',9.94],['Vistara Debt Long-Short SIF','Debt long-short','Low',10.07]].map(s=>`<tr><td><b style="color:var(--navy)">${s[0]}</b></td><td>${s[1]}</td><td>${s[2]}</td><td class="r">₹10,00,000</td><td class="r">₹${s[3]}</td><td class="r"><button class="btn btn-primary btn-sm" data-toast="SIF order flow opens here (demo)">Invest now</button></td></tr>`).join('')}</tbody></table></div>`}
+function viewSimple(title,desc,cta,feats,ico){return `<div class="welcome"><div><h2>${title}</h2><p>${desc}</p></div><button class="btn btn-white" data-toast="${cta} (demo)">${cta}</button></div><div class="g3">${feats.map(f=>`<div class="card feat"><span class="fi">${ic(ico)}</span><div><h3>${f[0]}</h3><p>${f[1]}</p></div></div>`).join('')}</div>`}
+function viewNetworth(){return `<div class="ahead"><h1>Net worth</h1></div><div class="card empty"><div class="ei">${ic('globe')}</div><h3>See everything you own in one place</h3><p style="max-width:56ch;margin:8px auto 18px">Securely link your bank accounts, mutual funds, stocks and NPS through the RBI-regulated Account Aggregator network. You choose what to share, and you can revoke consent any time.</p><button class="btn btn-primary" data-toast="Account Aggregator consent flow opens here (demo)">Link accounts</button></div>`}
+function viewCalc(){return `<div class="ahead"><h1>Calculators</h1></div>${calcBlock()}`}
+function viewHelp(){return `<div class="ahead"><h1>Help and support</h1></div><div class="split2"><div class="card pad">${faqHTML}</div><div style="display:grid;gap:14px;align-content:start"><div class="card pad"><h3>Chat with us</h3><p class="muted small" style="margin:6px 0 14px">Typical reply in under 5 minutes, 9am–7pm.</p><button class="btn btn-primary" data-toast="Chat window opens here (demo)">Start chat</button></div><div class="card pad"><h3>Call your advisor</h3><p class="muted small" style="margin:6px 0 14px">Priya S. · Wealth manager</p><button class="btn btn-outline" data-toast="Call request placed (demo)">Request a call</button></div><div class="card pad"><h3>Raise a ticket</h3><p class="muted small" style="margin:6px 0 14px">For transaction or KYC issues.</p><button class="btn btn-light" data-toast="Ticket form opens here (demo)">Raise a ticket</button></div></div></div>`}
+function viewProfile(sec){const nav=[['investors','Manage investors'],['bank','Bank details and mandates'],['nominee','Nominees'],['risk','Risk profile']];
+ let body='';
+ if(sec==='bank')body=`<div class="card pad"><div class="secthead"><h3>Bank accounts</h3><button class="btn btn-outline btn-sm" data-toast="Add bank via UPI ₹1 verification (demo)">Add new bank</button></div><div class="gport" style="padding:14px 0"><div><b style="color:var(--navy)">HDFC Bank · ****6549</b><div class="small muted">Primary · Savings</div></div><span class="chip" style="background:var(--up-soft);color:var(--up)">Verified</span><span></span></div></div><div class="card pad"><div class="secthead"><h3>Autopay mandates</h3><button class="btn btn-primary btn-sm" data-toast="Mandate setup via UPI Autopay / e-NACH (demo)">Create mandate</button></div><p class="muted">No mandates yet. A mandate lets your bank pay SIP instalments automatically. We never debit more than your SIP amount.</p></div>`;
+ else if(sec==='nominee')body=`<div class="card pad"><h3>Nominees</h3><p class="muted" style="margin:6px 0 16px">Add up to 10 nominees and split your investments between them.</p><div class="f2"><div class="fld"><label>Nominee name</label><input placeholder="Full name"></div><div class="fld"><label>Relationship</label><select><option>Spouse</option><option>Child</option><option>Parent</option><option>Sibling</option></select></div><div class="fld"><label>Date of birth</label><input type="date"></div><div class="fld"><label>Share</label><input value="100%"></div></div><button class="btn btn-primary" style="margin-top:16px" data-toast="Nominee saved (demo)">Save nominee</button></div>`;
+ else if(sec==='risk')body=`<div class="card pad"><h3>Risk profile</h3><p class="muted" style="margin:6px 0 16px">Answer 6 short questions so your advisor can recommend the right mix.</p>${[['How long do you plan to stay invested?',['Less than 3 years','3–7 years','More than 7 years']],['If your investments fell 20% in a month, you would…',['Sell everything','Wait and watch','Invest more']]].map((q,qi)=>`<div style="margin-bottom:16px"><b style="color:var(--navy)">${qi+1}. ${q[0]}</b><div style="display:grid;gap:6px;margin-top:8px">${q[1].map(o=>`<label style="display:flex;gap:8px;align-items:center"><input type="radio" name="q${qi}">${o}</label>`).join('')}</div></div>`).join('')}<button class="btn btn-primary" data-toast="Risk profile: Moderately aggressive (demo)">See my profile</button></div>`;
+ else body=`<div class="card pad"><div class="secthead"><h3>Investors on this account</h3><button class="btn btn-outline btn-sm" data-toast="Add family member flow (demo)">Add investor</button></div><div class="gport" style="padding:14px 0"><div style="display:flex;gap:12px;align-items:center"><span class="av">RK</span><div><b style="color:var(--navy)">Ravi Kumar</b><div class="small muted">Primary holder · KYC verified</div></div></div><span></span><span></span></div><p class="muted small" style="margin-top:10px">Add your spouse, parents or children to manage the whole family's investments from one login. Joint accounts are also supported.</p></div>`;
+ return `<div class="ahead"><h1>My profile</h1></div><div class="pills">${nav.map(n=>`<a class="pill" href="#/app/profile/${n[0]}" style="text-decoration:none" aria-pressed="${n[0]===sec}">${n[1]}</a>`).join('')}</div>${body}`}
+function viewKyc(){return `<div class="ahead"><h1>KYC verification</h1></div><div class="card pad"><p class="muted" style="margin-bottom:16px">Complete your fully digital KYC through DigiLocker. Keep your Aadhaar number and mobile handy.</p><div class="kyc-steps">${[['Fetch PAN and Aadhaar from DigiLocker','Verified on 06 Oct 2026',1],['Upload your signature','Sign on white paper or draw with a stylus',1],['Take a selfie','Make sure you are in a well-lit place',1],['Add bank account','Verify instantly with ₹1 via UPI',1]].map((s,i)=>`<div class="kstep ${s[2]?'done':''}"><span class="kn">${s[2]?ic('check'):i+1}</span><div><b style="color:var(--navy)">${s[0]}</b><div class="small muted">${s[1]}</div></div></div>`).join('')}</div><p class="small muted" style="margin-top:16px">Can't receive the Aadhaar OTP? Use the offline process with a signed account opening form.</p></div>`}
+function viewReports(){return `<div class="ahead"><h1>Statements and reports</h1></div><div class="g3">${['Portfolio statement','Capital gains statement','Transaction statement','Consolidated account statement','SIP summary','Tax-saving (ELSS) report'].map(r=>`<div class="card feat"><span class="fi">${ic('report')}</span><div><h3>${r}</h3><p>PDF or Excel, for any date range.</p><button class="btn btn-light btn-sm" style="margin-top:10px" data-toast="${r} downloaded (demo)">Download</button></div></div>`).join('')}</div>`}
+
+/* ---------- app router ---------- */
+let current='';
+function render(){const p=current;const main=$('#appMain');const sub=$('#subnav');
+ const isMF=p.startsWith('mf/')||p.startsWith('fund/');sub.hidden=!isMF;
+ if(isMF)sub.innerHTML=MFNAV.map(n=>`<a href="#/app/mf/${n[0]}" class="${p==='mf/'+n[0]||(n[0]==='sip'&&p.startsWith('fund/'))?'on':''}">${n[1]}</a>`).join('');
+ $$('#snav a').forEach(a=>a.classList.toggle('on',a.dataset.sn===(isMF?'mf':p.split('/')[0])));
+ const V={dashboard:viewDashboard,'mf/portfolio':viewPortfolio,'mf/invest':viewInvest,'mf/sip':viewExplorer,'mf/transactions':viewTx,'mf/watchlist':viewWatch,bonds:viewBonds,sif:viewSIF,networth:viewNetworth,calc:viewCalc,help:viewHelp,kyc:viewKyc,reports:viewReports,
+  equity:()=>viewSimple('Open your trading and demat account','Invest in stocks with research-backed ideas, stock SIPs and a dedicated relationship manager.','Open equity account',[['Stock SIPs','Buy a fixed amount of quality stocks every month.'],['Research desk','Recommendations with clear entry and exit reasoning.'],['Low brokerage','Transparent pricing with first-year AMC free.']],'trend'),
+  fd:()=>viewSimple('Corporate fixed deposits','Earn fixed interest from rated companies, with monthly, quarterly or yearly payouts.','Explore FDs',[['Rated issuers','Only deposits rated AA and above.'],['Flexible payouts','Choose monthly, quarterly or cumulative interest.'],['Paperless','Book an FD online in minutes.']],'bank'),
+  nps:()=>viewSimple('National Pension System','Build a retirement corpus with an extra ₹50,000 tax deduction under Section 80CCD(1B).','Open NPS account',[['Low cost','One of the lowest-cost retirement products in India.'],['Your mix','Choose your equity and debt allocation.'],['Extra tax saving','Over and above the ₹1.5 lakh 80C limit.']],'umbrella'),
+  insurance:()=>viewSimple('Protect your family','Term life and health insurance so your investments stay untouched in a crisis.','Get a quote',[['Term insurance','Large cover at a low premium.'],['Health insurance','Cashless treatment at network hospitals.'],['Claim support','Our team helps you through claims.']],'shield')};
+ let html='';if(p.startsWith('fund/'))html=viewFund(+p.split('/')[1]);else if(p.startsWith('profile/'))html=viewProfile(p.split('/')[1]);else html=(V[p.split('?')[0]]||viewDashboard)();
+ main.innerHTML=html;paintIcons(main);
+ if(p==='dashboard')wireDashboard();if(p==='mf/portfolio')wirePortfolio();if(p.startsWith('mf/sip'))wireExplorer();if(p.startsWith('fund/'))wireFund(+p.split('/')[1]);if(main.querySelector('#hc_a'))wireCalc();
+ $('#side').classList.remove('open');
+}
+
+/* ---------- main router ---------- */
+function route(){const h=location.hash.replace(/^#/,'')||'/';
+ if(h.startsWith('/app/')){document.body.classList.add('in-app');let p=h.slice(5);const q=p.split('?');if(q[1]&&q[0]==='mf/sip'){const c=new URLSearchParams(q[1]).get('cat');if(c)ex.cat=c}current=q[0];render();window.scrollTo(0,0)}
+ else{document.body.classList.remove('in-app');pubPage(h)}}
+window.addEventListener('hashchange',route);
+
+/* ---------- login ---------- */
+function openLogin(){$('#loginModal').classList.add('show');$('#scrim').classList.add('show');setTimeout(()=>$('#mob').focus(),50)}
+function closeAll(){$('#loginModal').classList.remove('show');$('#drawer').classList.remove('show');$('#drawer').setAttribute('aria-hidden','true');$('#scrim').classList.remove('show')}
+document.addEventListener('click',e=>{if(e.target.closest('[data-login]')){e.preventDefault();openLogin()}if(e.target.closest('[data-close]'))closeAll()});
+$('#loginModal').addEventListener('click',e=>{if(e.target.id==='loginModal')closeAll()});
+const doLogin=()=>{closeAll();location.hash='#/app/dashboard';toast('Welcome back, Ravi (demo login)')};
+$('#otpBtn').onclick=doLogin;$('#gBtn').onclick=doLogin;
+$('#scrim').onclick=closeAll;document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeAll();$$('.dd').forEach(d=>d.classList.remove('show'))}});
+
+/* ---------- basket ---------- */
+const cart=new Map();
+document.addEventListener('click',e=>{const f=e.target.closest('[data-fund]');if(f){location.hash='#/app/fund/'+f.dataset.fund;return}
+ const a=e.target.closest('[data-add]');if(a){toggleCart(+a.dataset.add)}
+ const n=e.target.closest('[data-investnow]');if(n){const id=+n.dataset.investnow;if(!cart.has(id))addCart(id);openDrawer()}});
+function addCart(id){cart.set(id,{type:'sip',sipType:'Regular',amt:5000,date:5,dur:'Until cancelled',step:0,goal:'Wealth creation'})}
+function toggleCart(id){if(cart.has(id)){cart.delete(id);toast('Removed from basket')}else{addCart(id);toast('Added to basket')}syncCart();if(document.body.classList.contains('in-app'))render()}
+function syncCart(){$('#cartN').textContent=cart.size;$('#cartN').hidden=!cart.size}
+function renderBasket(){const b=$('#bbody'),ft=$('#bfoot');$('#bsub').textContent=cart.size?cart.size+' fund'+(cart.size>1?'s':'')+' selected':'';
+ if(!cart.size){b.innerHTML=`<div class="empty"><div class="ei">${ic('pie')}</div><p>Your basket is empty. Add funds to invest in them together.</p><a class="btn btn-primary" style="margin-top:14px" href="#/app/mf/sip" data-closebasket>Explore funds</a></div>`;ft.innerHTML='';return}
+ b.innerHTML=[...cart].map(([id,o])=>{const f=FUNDS.find(x=>x.id===id);return `<div class="bitem" data-item="${id}"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><div style="display:flex;gap:10px;align-items:center">${amcBadge(f)}<b style="color:var(--navy);font-size:.92rem">${f.name}</b></div><button class="x" style="font-size:1.3rem" data-rm aria-label="Remove">×</button></div>
+  <div class="fld"><label>Investor</label><select><option>Ravi Kumar</option></select></div>
+  <span class="seg"><button data-type="sip" aria-pressed="${o.type==='sip'}">SIP</button><button data-type="lump" aria-pressed="${o.type==='lump'}">Lump sum</button></span>
+  ${o.type==='sip'?`<div class="fld"><label>SIP type</label><span class="seg">${['Regular','Flexi','Step-up'].map(t=>`<button data-st="${t}" aria-pressed="${o.sipType===t}">${t}</button>`).join('')}</span></div>`:''}
+  <div class="f2"><div class="fld"><label>${o.type==='sip'?'SIP amount':'Amount'}</label><input data-amt inputmode="numeric" value="${o.amt}"></div>${o.type==='sip'?`<div class="fld"><label>Debit date</label><select>${[1,5,10,15,20,25].map(d=>`<option ${d===o.date?'selected':''}>${d}th of month</option>`).join('')}</select></div>`:`<div class="fld"><label>Folio</label><select><option>New folio</option></select></div>`}</div>
+  ${o.type==='sip'?`<div class="f2"><div class="fld"><label>Duration</label><select><option>Until cancelled</option><option>12 months</option><option>36 months</option><option>60 months</option><option>120 months</option></select></div><div class="fld"><label>Folio</label><select><option>New folio</option></select></div></div>`:''}
+  <div class="fld"><label>Link to goal portfolio</label><select>${['Ravi Kumar portfolio',"Child's education",'Emergency fund','Tax saving','Retirement'].map(g=>`<option>${g}</option>`).join('')}</select></div></div>`}).join('');
+ const tot=[...cart.values()].reduce((s,o)=>s+(+o.amt||0),0);
+ ft.innerHTML=`<div style="display:flex;justify-content:space-between;margin-bottom:12px" class="num"><span class="muted">Total</span><b style="color:var(--navy)">${inr(tot)}</b></div><button class="btn btn-primary" style="width:100%" id="confirmBtn">Proceed to confirm</button><p class="footnote" style="margin-top:10px">Redemption bank: HDFC Bank ****6549</p>`;
+ $('#confirmBtn').onclick=confirmOrder}
+function confirmOrder(){const sip=[...cart.values()].some(o=>o.type==='sip');
+ $('#bbody').innerHTML=sip?`<div class="empty"><div class="ei">${ic('lock')}</div><h3>Autopay mandate required for SIP</h3><p style="margin:8px 0 18px">A one-time mandate lets your bank pay SIP instalments automatically. You stay in control: we will never debit more than your SIP amount, and you can cancel anytime.</p><button class="btn btn-primary" data-toast="UPI Autopay / e-NACH setup opens here (demo)">Set up mandate</button></div>`
+ :`<div class="card pad"><h3>Order summary</h3><div class="kv num" style="margin-top:14px">${[...cart].map(([id,o])=>`<div><small>${FUNDS.find(x=>x.id===id).name}</small><b>${inr(o.amt)}</b></div>`).join('')}</div></div><div class="fld"><label>Pay using</label><span class="seg"><button aria-pressed="true">UPI</button><button aria-pressed="false">Net banking</button></span></div><p class="small muted">Units are allotted at the NAV of the day the money reaches the fund house.</p>`;
+ $('#bfoot').innerHTML=sip?`<button class="btn btn-light" style="width:100%" id="backB">Back to basket</button>`:`<button class="btn btn-primary" style="width:100%" data-toast="Payment gateway opens here (demo)">Pay now</button><button class="btn btn-light" style="width:100%;margin-top:8px" id="backB">Back to basket</button>`;
+ $('#backB').onclick=renderBasket}
+$('#bbody').addEventListener('click',e=>{if(e.target.closest('[data-closebasket]')){closeAll();return}const it=e.target.closest('[data-item]');if(!it)return;const id=+it.dataset.item,o=cart.get(id);
+ if(e.target.closest('[data-rm]')){cart.delete(id);syncCart();renderBasket();if(document.body.classList.contains('in-app'))render();return}
+ if(e.target.dataset.type){o.type=e.target.dataset.type;renderBasket()}if(e.target.dataset.st){o.sipType=e.target.dataset.st;renderBasket()}});
+$('#bbody').addEventListener('input',e=>{const it=e.target.closest('[data-item]');if(it&&e.target.hasAttribute('data-amt')){cart.get(+it.dataset.item).amt=+e.target.value||0;const tot=[...cart.values()].reduce((s,o)=>s+(+o.amt||0),0);const b=$('#bfoot b');if(b)b.textContent=inr(tot)}});
+function openDrawer(){renderBasket();$('#drawer').classList.add('show');$('#drawer').setAttribute('aria-hidden','false');$('#scrim').classList.add('show')}
+$('#cartBtn').onclick=openDrawer;$('#closeDrawer').onclick=closeAll;
+$('#gsearch').addEventListener('keydown',e=>{if(e.key==='Enter'){ex.q=e.target.value;ex.cat='All';location.hash='#/app/mf/sip';if(current==='mf/sip')render()}});
+
+paintIcons();syncCart();route();
+})();
+</script>
+</body>
+</html>
